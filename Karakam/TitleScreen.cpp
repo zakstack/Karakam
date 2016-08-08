@@ -32,7 +32,7 @@ void TitleScreen::mainMenu()
 		titleBar_text.setCharacterSize(64);
 		titleBar_text.setPosition(sf::Vector2f(320, 70));
 		titleBar_text.setString("ZOMBIE");
-		titleBar_text.setColor(sf::Color::Red);
+		titleBar_text.setColor(sf::Color::Black);
 
 		//New Game Button
 		sf::RectangleShape newGame_but(sf::Vector2f(150,50));
@@ -86,22 +86,22 @@ void TitleScreen::mainMenu()
 				if (xClickPos >= 350 && xClickPos <= 500)
 				{
 					//New Game
-					if (yClickPos >= 200 && yClickPos <= 250)
+					if (yClickPos >= newGame_but.getPosition().y && yClickPos <= newGame_but.getPosition().y + newGame_but.getSize().y)
 					{
 						newGame();
 					}
 					//Load Game
-					else if (yClickPos >= 350 && yClickPos <= 400)
+					else if (yClickPos >= loadGame_but.getPosition().y && yClickPos <= loadGame_but.getPosition().y + loadGame_but.getSize().y)
 					{
 						loadGame();
 					}
 					//Settings
-					else if (yClickPos >= 500 && yClickPos <= 550)
+					else if (yClickPos >= settings_but.getPosition().y && yClickPos <= settings_but.getPosition().y + settings_but.getSize().y)
 					{
 						settings();
 					}
-					//Quit
-					else if (yClickPos >= 650 && yClickPos <= 700)
+					//Exit
+					else if (yClickPos >= exit_but.getPosition().y && yClickPos <= exit_but.getPosition().y + exit_but.getSize().y)
 					{
 						quit();
 					}

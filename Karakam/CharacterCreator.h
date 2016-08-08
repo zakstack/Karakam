@@ -14,6 +14,10 @@ private:
 	sf::Sprite _cursor;
 	sf::Sprite _background;
 
+	sf::Font _titleFont;
+	sf::Font _bodyFont;
+	sf::Font _headerFont;
+
 public:
 	CharacterCreator(sf::RenderWindow* mainWindow, std::string libraryLoc);
 	~CharacterCreator();

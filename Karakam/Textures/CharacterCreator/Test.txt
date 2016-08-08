@@ -1,0 +1,3 @@
+Textures/CharacterCreator/0.png,
+Textures/CharacterCreator/1.png,
+Textures/CharacterCreator/2.png,
