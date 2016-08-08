@@ -127,6 +127,7 @@ void TitleScreen::mainMenu()
 
 void TitleScreen::newGame()
 {
+	//TO DO : Select a Save Slot
 	//Run Character Creator
 	CharacterCreator(_renderWindow, "Textures/CharacterCreator/Test.txt");
 }

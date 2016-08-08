@@ -120,7 +120,9 @@
   <ItemGroup>
     <ClCompile Include="CharacterCreator.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapViewer.cpp" />
     <ClCompile Include="MetaGet.cpp" />
     <ClCompile Include="TextureLibrary.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
@@ -128,7 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CharacterCreator.h" />
+    <ClInclude Include="MainGame.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapViewer.h" />
     <ClInclude Include="MetaGet.h" />
     <ClInclude Include="TextureLibrary.h" />
     <ClInclude Include="TitleScreen.h" />

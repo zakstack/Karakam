@@ -5,6 +5,8 @@
 #include "TextureLibrary.h"
 #include <SFML\Graphics.hpp>
 #include "CharacterCreator.h"
+#include "Map.h"
+#include "MapViewer.h"
 
 class TitleScreen
 {

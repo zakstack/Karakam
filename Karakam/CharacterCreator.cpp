@@ -28,9 +28,15 @@ void CharacterCreator::mainMenu()
 
 	//Back Button
 	sf::RectangleShape back_but;
-	back_but.setFillColor(sf::Color::White);
+	back_but.setFillColor(sf::Color::Yellow);
 	back_but.setSize(sf::Vector2f(80, 30));
-	back_but.setPosition(710, 10);
+	back_but.setPosition(710, 50);
+
+	//Start Button
+	sf::RectangleShape start_but;
+	start_but.setFillColor(sf::Color::Yellow);
+	start_but.setSize(sf::Vector2f(80, 30));
+	start_but.setPosition(710, 10);
 
 	//Character Window
 	//TO DO : Add character customization
@@ -215,6 +221,7 @@ void CharacterCreator::mainMenu()
 		sf::Event event;
 		while (_renderWindow->pollEvent(event))
 		{
+			//This is where we poll for all of our events
 			if (event.type == sf::Event::Closed)
 				_renderWindow->close();
 			if (event.type == sf::Event::MouseMoved)
@@ -232,6 +239,14 @@ void CharacterCreator::mainMenu()
 						back = true;
 					}
 				}
+				//Start Button
+				if (xClickPos >= start_but.getPosition().x && xClickPos <= start_but.getPosition().x + start_but.getSize().x)
+				{
+					if (yClickPos >= start_but.getPosition().y && yClickPos <= start_but.getPosition().y + start_but.getSize().y)
+					{
+						std::cout << "Game Start!\n";
+					}
+				}
 				//STR
 				if (xClickPos >= str_p.getPosition().x && xClickPos <= str_p.getPosition().x + 10)
 				{
@@ -243,6 +258,7 @@ void CharacterCreator::mainMenu()
 							points--;
 							str_text.setString("STR : " + std::to_string(strVal));
 							points_text.setString("Points to Spend : " + std::to_string(points));
+							//CALCPROF
 						}
 					}
 				}
@@ -256,6 +272,7 @@ void CharacterCreator::mainMenu()
 							points++;
 							str_text.setString("STR : " + std::to_string(strVal));
 							points_text.setString("Points to Spend : " + std::to_string(points));
+							//CALCPROF
 						}
 					}
 				}
@@ -401,6 +418,9 @@ void CharacterCreator::mainMenu()
 
 		//Draw the Back Button
 		_renderWindow->draw(back_but);
+
+		//Draw the Start Button
+		_renderWindow->draw(start_but);
 
 		//Draw the Character Window
 		_renderWindow->draw(characterWindow_back);
