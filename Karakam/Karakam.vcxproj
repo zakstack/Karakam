@@ -118,6 +118,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="ActorController.cpp" />
     <ClCompile Include="CharacterCreator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -129,6 +131,8 @@
     <ClCompile Include="WorldMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="ActorController.h" />
     <ClInclude Include="CharacterCreator.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Map.h" />

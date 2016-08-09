@@ -23,6 +23,9 @@ public:
 	//Getters
 	sf::Texture& getTexture(int textID);
 
+	//Setters
+	void addTexture(sf::Texture targetTexture);
+
 	//Utilities
 	void LoadLibrary(std::string fileLoc);
 };

@@ -245,6 +245,7 @@ void CharacterCreator::mainMenu()
 					if (yClickPos >= start_but.getPosition().y && yClickPos <= start_but.getPosition().y + start_but.getSize().y)
 					{
 						std::cout << "Game Start!\n";
+						MainGame newGame(_renderWindow);
 					}
 				}
 				//STR
@@ -448,7 +449,7 @@ void CharacterCreator::mainMenu()
 			_renderWindow->draw(lck_m);
 		_renderWindow->draw(points_text);
 
-		//Draw the Proffession Window
+		//Draw the Profession Window
 		_renderWindow->draw(profWindow_back);
 		_renderWindow->draw(profWindowTitle_text);
 

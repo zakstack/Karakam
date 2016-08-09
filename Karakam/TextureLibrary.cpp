@@ -15,6 +15,12 @@ sf::Texture& TextureLibrary::getTexture(int textID)
 	return _library.at(textID);
 }
 
+//Setters
+void TextureLibrary::addTexture(sf::Texture targetTexture)
+{
+	_library.push_back(targetTexture);
+}
+
 //Utilities
 void TextureLibrary::LoadLibrary(std::string fileLoc)
 {

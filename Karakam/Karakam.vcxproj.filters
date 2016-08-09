@@ -42,6 +42,12 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MetaGet.h">
@@ -66,6 +72,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

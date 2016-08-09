@@ -4,6 +4,7 @@
 #include <SFML\Graphics.hpp>
 #include "MetaGet.h"
 #include "TextureLibrary.h"
+#include "MainGame.h"
 
 class CharacterCreator
 {

@@ -22,9 +22,9 @@ Tile* Map::getTile(int x, int y)
 }
 
 //TO DO
-int Map::getActor(int x, int y)
+Actor* Map::getActor(int x, int y)
 {
-	return 0;
+	return _actorMap[x][y];
 }
 
 sf::Texture Map::getTextureMap()
@@ -46,10 +46,14 @@ void Map::setItem(int x, int y)
 
 }
 
-// TO DO
-void Map::setActor(int x, int y)
+void Map::moveActor(Actor* targetActor, int xMove, int yMove)
 {
-
+	if (_actorMap[targetActor->getXPos() + xMove][targetActor->getYPos() + yMove] == nullptr && getTile(targetActor->getXPos() + xMove, targetActor->getYPos() + yMove)->passability == 0);
+	{
+		_actorMap[targetActor->getXPos() + xMove][targetActor->getYPos() + yMove] = targetActor;
+		_actorMap[targetActor->getXPos()][targetActor->getYPos()] = nullptr;
+		targetActor->setPosition(targetActor->getXPos() + xMove, targetActor->getYPos() + yMove);
+	}
 }
 
 //Utility
@@ -60,6 +64,10 @@ void Map::drawMap()
 		for (int x = 0; x < _tileMap.at(0).size(); x++)
 		{
 			_targetWindow->draw(_tileMap.at(y).at(x).graphic);
+			if (_actorMap[x][y] != nullptr)
+			{
+				_targetWindow->draw(_actorMap[x][y]->getGraphic());
+			}
 		}
 	}
 }
@@ -91,6 +99,35 @@ void Map::loadMap(std::string mapLoc)
 		}
 		_tileMap.push_back(newXLine);
 	}
+	//Build the Actor Map
+	_actorMap = new Actor**[mapLayout.at(0).size()];
+	for (int i = 0; i < mapLayout.at(0).size(); ++i)
+	{
+		_actorMap[i] = new Actor*[mapLayout.size()];
+	}
+	for (int y = 0; y < mapLayout.at(0).size(); y++)
+	{
+		for (int x = 0; x < mapLayout.size(); x++)
+		{
+			_actorMap[x][y] = nullptr;
+		}
+	}
+	//Fifth Element is the Actor Graphic List
+	_actorLibrary.LoadLibrary(mapData.at(4).at(0));
+
+	//Sixth Element is the Actor Master Load List
+	std::vector<std::vector<std::string>> actorLoadList = mapGetter.getArray(mapData.at(5).at(0));
+
+	//Load all of the actors present in the load List
+	for (int y = 0; y < actorLoadList.size(); y++)
+	{
+		Actor* newActor;
+		newActor = new Actor();
+		newActor->loadActor(actorLoadList.at(y).at(0));
+		newActor->setGraphic(&_actorLibrary.getTexture(newActor->getGraphicID()));
+		_actorMap[newActor->getXPos()][newActor->getYPos()] = newActor;
+	}
+	std::cout << "cats";
 }
 
 //TO DO
