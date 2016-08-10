@@ -64,9 +64,9 @@ void Map::drawMap()
 		for (int x = 0; x < _tileMap.at(0).size(); x++)
 		{
 			_targetWindow->draw(_tileMap.at(y).at(x).graphic);
-			if (_actorMap[x][y] != nullptr)
+			if (_actorMap[y][x] != nullptr)
 			{
-				_targetWindow->draw(_actorMap[x][y]->getGraphic());
+				_targetWindow->draw(_actorMap[y][x]->getGraphic());
 			}
 		}
 	}
@@ -85,31 +85,31 @@ void Map::loadMap(std::string mapLoc)
 	//Fourth element is the isWater location
 	std::vector<std::vector<std::string>> isWater = mapGetter.getArray(mapData.at(3).at(0));
 	//Once all of these have been found and loaded we can load up the tile map
-	for (int y = 0; y < mapLayout.at(0).size(); y++)
+	for (int y = 0; y < mapLayout.size(); y++)
 	{
 		std::vector<Tile> newXLine;
-		for (int x = 0; x < mapLayout.size(); x++)
+		for (int x = 0; x < mapLayout.at(0).size(); x++)
 		{
 			Tile newTile;
-			newTile.graphic.setTexture(_tileLibrary.getTexture(std::stoi(mapLayout.at(x).at(y))));
-			newTile.graphic.setPosition(x * 50, y * 50);
-			newTile.passability = (std::stoi(passability.at(x).at(y)));
-			newTile.isWater = (std::stoi(isWater.at(x).at(y)));
+			newTile.graphic.setTexture(_tileLibrary.getTexture(std::stoi(mapLayout.at(y).at(x))));
+			newTile.graphic.setPosition(y * 50, x * 50);
+			newTile.passability = (std::stoi(passability.at(y).at(x)));
+			newTile.isWater = (std::stoi(isWater.at(y).at(x)));
 			newXLine.push_back(newTile);
 		}
 		_tileMap.push_back(newXLine);
 	}
 	//Build the Actor Map
-	_actorMap = new Actor**[mapLayout.at(0).size()];
-	for (int i = 0; i < mapLayout.at(0).size(); ++i)
+	_actorMap = new Actor**[mapLayout.size()];
+	for (int i = 0; i < mapLayout.size(); ++i)
 	{
-		_actorMap[i] = new Actor*[mapLayout.size()];
+		_actorMap[i] = new Actor*[mapLayout.at(0).size()];
 	}
-	for (int y = 0; y < mapLayout.at(0).size(); y++)
+	for (int y = 0; y < mapLayout.size(); y++)
 	{
-		for (int x = 0; x < mapLayout.size(); x++)
+		for (int x = 0; x < mapLayout.at(0).size(); x++)
 		{
-			_actorMap[x][y] = nullptr;
+			_actorMap[y][x] = nullptr;
 		}
 	}
 	//Fifth Element is the Actor Graphic List
@@ -125,7 +125,7 @@ void Map::loadMap(std::string mapLoc)
 		newActor = new Actor();
 		newActor->loadActor(actorLoadList.at(y).at(0));
 		newActor->setGraphic(&_actorLibrary.getTexture(newActor->getGraphicID()));
-		_actorMap[newActor->getXPos()][newActor->getYPos()] = newActor;
+		_actorMap[newActor->getYPos()][newActor->getXPos()] = newActor;
 	}
 	std::cout << "cats";
 }

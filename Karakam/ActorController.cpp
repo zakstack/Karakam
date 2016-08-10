@@ -12,9 +12,10 @@ ActorController::~ActorController()
 {
 }
 
-void ActorController::moveActor(int x, int y)
+//Getters
+Actor* ActorController::getActor()
 {
-
+	return _targetActor;
 }
 
 void ActorController::tick()

@@ -1,5 +1,6 @@
 #include "MainGame.h"
-//NOTE THIS IS JUST A TEST BUILD THIS WILL NEED TO BE HEAVILY EDITED FOR WORK FLOW
+
+
 MainGame::MainGame(sf::RenderWindow* targetWindow)
 {
 	_renderWindow = targetWindow;
@@ -9,8 +10,6 @@ MainGame::MainGame(sf::RenderWindow* targetWindow)
 
 	//Create the Character Controller
 	ActorController playerCont(_testMap,_testMap->getActor(1,1),_renderWindow);
-
-	//Attach the Character Controller to the Player Actor
 
 	//Create the Cursor
 	_cursorTexture.loadFromFile("Textures/MainGame/Cursor.png");
@@ -27,6 +26,9 @@ MainGame::MainGame(sf::RenderWindow* targetWindow)
 				_cursor.setPosition(event.mouseMove.x, event.mouseMove.y);
 			playerCont.tick();
 		}
+
+		//Center the View on the Player
+		_renderWindow->setView(sf::View(sf::FloatRect(playerCont.getActor()->getXPos() * 50 - 400, playerCont.getActor()->getYPos() * 50 - 400, 800, 800)));
 
 		_renderWindow->clear();
 		//Draw the Map

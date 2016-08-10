@@ -15,6 +15,9 @@ public:
 	ActorController(Map* targetMap, Actor* targetActor, sf::RenderWindow* targetWindow);
 	~ActorController();
 
+	//Getters
+	Actor* getActor();
+
 	//Utilities
 	void moveActor(int x, int y);
 
