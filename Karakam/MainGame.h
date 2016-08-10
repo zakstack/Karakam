@@ -12,10 +12,10 @@ private:
 	sf::Sprite _cursor;
 	sf::Texture _cursorTexture;
 	std::vector<Actor*> _activeActors;
-	Map* _testMap;
+	Map* _gameMap;
 
 public:
-	MainGame(sf::RenderWindow* targetWindow);
+	MainGame(sf::RenderWindow* targetWindow, std::string gameLoadLoc);
 	~MainGame();
 };
 

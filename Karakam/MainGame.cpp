@@ -1,15 +1,16 @@
 #include "MainGame.h"
 
 
-MainGame::MainGame(sf::RenderWindow* targetWindow)
+MainGame::MainGame(sf::RenderWindow* targetWindow, std::string mapMasterLoc)
 {
 	_renderWindow = targetWindow;
-	//Create the Map
-	_testMap = new Map(_renderWindow);
-	_testMap->loadMap("Bin/Maps/TestMap/Master.txt");
+
+	//Load the Map
+	_gameMap = new Map(_renderWindow);
+	_gameMap->loadMap(mapMasterLoc);
 
 	//Create the Character Controller
-	ActorController playerCont(_testMap,_testMap->getActor(1,1),_renderWindow);
+	ActorController playerCont(_gameMap,_gameMap->getActor(1,1),_renderWindow);
 
 	//Create the Cursor
 	_cursorTexture.loadFromFile("Textures/MainGame/Cursor.png");
@@ -32,7 +33,7 @@ MainGame::MainGame(sf::RenderWindow* targetWindow)
 
 		_renderWindow->clear();
 		//Draw the Map
-		_testMap->drawMap();
+		_gameMap->drawMap();
 		//Draw the Cursor
 		_renderWindow->draw(_cursor);
 		_renderWindow->display();

@@ -245,7 +245,7 @@ void CharacterCreator::mainMenu()
 					if (yClickPos >= start_but.getPosition().y && yClickPos <= start_but.getPosition().y + start_but.getSize().y)
 					{
 						std::cout << "Game Start!\n";
-						MainGame newGame(_renderWindow);
+						MainGame newGame(_renderWindow, "Bin/Maps/TestMap/Master.txt");
 					}
 				}
 				//STR

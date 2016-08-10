@@ -48,11 +48,15 @@ void Map::setItem(int x, int y)
 
 void Map::moveActor(Actor* targetActor, int yMove, int xMove)
 {
-	if (_actorMap[targetActor->getYPos() + yMove][targetActor->getXPos() + xMove] == nullptr && getTile(targetActor->getYPos() + yMove, targetActor->getXPos() + xMove)->passability == 0);
+	if (_actorMap[targetActor->getYPos() + yMove][targetActor->getXPos() + xMove] == nullptr && getTile(targetActor->getYPos() + yMove, targetActor->getXPos() + xMove)->passability == 0)
 	{
 		_actorMap[targetActor->getYPos() + yMove][targetActor->getXPos() + xMove] = targetActor;
 		_actorMap[targetActor->getYPos()][targetActor->getXPos()] = nullptr;
 		targetActor->setPosition(targetActor->getXPos() + xMove, targetActor->getYPos() + yMove);
+	}
+	else
+	{
+		//You have hit another actor
 	}
 }
 
