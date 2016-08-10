@@ -16,15 +16,15 @@ int Map::getItem(int x, int y)
 	return 0;
 }
 
-Tile* Map::getTile(int x, int y)
+Tile* Map::getTile(int y, int x)
 {
-	return &_tileMap.at(x).at(y);
+	return &_tileMap.at(y).at(x);
 }
 
 //TO DO
-Actor* Map::getActor(int x, int y)
+Actor* Map::getActor(int y, int x)
 {
-	return _actorMap[x][y];
+	return _actorMap[y][x];
 }
 
 sf::Texture Map::getTextureMap()
@@ -35,9 +35,9 @@ sf::Texture Map::getTextureMap()
 }
 
 //Setters
-void Map::setTile(int x, int y, Tile newTile)
+void Map::setTile(int y, int x, Tile newTile)
 {
-	_tileMap.at(x).at(y) = newTile;
+	_tileMap.at(y).at(x) = newTile;
 }
 
 // TO DO
@@ -46,12 +46,12 @@ void Map::setItem(int x, int y)
 
 }
 
-void Map::moveActor(Actor* targetActor, int xMove, int yMove)
+void Map::moveActor(Actor* targetActor, int yMove, int xMove)
 {
-	if (_actorMap[targetActor->getXPos() + xMove][targetActor->getYPos() + yMove] == nullptr && getTile(targetActor->getXPos() + xMove, targetActor->getYPos() + yMove)->passability == 0);
+	if (_actorMap[targetActor->getYPos() + yMove][targetActor->getXPos() + xMove] == nullptr && getTile(targetActor->getYPos() + yMove, targetActor->getXPos() + xMove)->passability == 0);
 	{
-		_actorMap[targetActor->getXPos() + xMove][targetActor->getYPos() + yMove] = targetActor;
-		_actorMap[targetActor->getXPos()][targetActor->getYPos()] = nullptr;
+		_actorMap[targetActor->getYPos() + yMove][targetActor->getXPos() + xMove] = targetActor;
+		_actorMap[targetActor->getYPos()][targetActor->getXPos()] = nullptr;
 		targetActor->setPosition(targetActor->getXPos() + xMove, targetActor->getYPos() + yMove);
 	}
 }
@@ -92,7 +92,7 @@ void Map::loadMap(std::string mapLoc)
 		{
 			Tile newTile;
 			newTile.graphic.setTexture(_tileLibrary.getTexture(std::stoi(mapLayout.at(y).at(x))));
-			newTile.graphic.setPosition(y * 50, x * 50);
+			newTile.graphic.setPosition(x * 50, y * 50);
 			newTile.passability = (std::stoi(passability.at(y).at(x)));
 			newTile.isWater = (std::stoi(isWater.at(y).at(x)));
 			newXLine.push_back(newTile);

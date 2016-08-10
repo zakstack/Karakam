@@ -23,12 +23,12 @@ MainGame::MainGame(sf::RenderWindow* targetWindow)
 			if (event.type == sf::Event::Closed)
 				_renderWindow->close();
 			if (event.type == sf::Event::MouseMoved)
-				_cursor.setPosition(event.mouseMove.x, event.mouseMove.y);
+				_cursor.setPosition(playerCont.getActor()->getXPos() * 50 - 400 + event.mouseMove.x, playerCont.getActor()->getYPos() * 50 - 400 + event.mouseMove.y);
 			playerCont.tick();
 		}
 
 		//Center the View on the Player
-		_renderWindow->setView(sf::View(sf::FloatRect(playerCont.getActor()->getXPos() * 50 - 400, playerCont.getActor()->getYPos() * 50 - 400, 800, 800)));
+		_renderWindow->setView(sf::View(sf::FloatRect(playerCont.getActor()->getXPos() * 50 - 400, playerCont.getActor()->getYPos() * 50 - 350, 800, 800)));
 
 		_renderWindow->clear();
 		//Draw the Map

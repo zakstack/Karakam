@@ -30,40 +30,40 @@ void ActorController::tick()
 			if (event.key.code == 119)
 			{
 				//Check if the space up from the actor is free
-				if (_targetMap->getTile(_targetActor->getXPos(), _targetActor->getYPos() - 1)->passability == 0)
+				if (_targetMap->getTile(_targetActor->getYPos() - 1, _targetActor->getXPos())->passability == 0)
 				{
 					//Move the actor up relative to the Map
-					_targetMap->moveActor(_targetActor, 0, -1);
+					_targetMap->moveActor(_targetActor, -1, 0);
 				}
 			}
 			//A Pressed
 			if (event.key.code == 97)
 			{
 				//Check if the space up from the actor is free
-				if (_targetMap->getTile(_targetActor->getXPos() - 1, _targetActor->getYPos())->passability == 0)
+				if (_targetMap->getTile(_targetActor->getYPos(), _targetActor->getXPos() - 1)->passability == 0)
 				{
 					//Move the actor up relative to the Map
-					_targetMap->moveActor(_targetActor, -1, 0);
+					_targetMap->moveActor(_targetActor, 0, -1);
 				}
 			}
 			//S Pressed
 			if (event.key.code == 115)
 			{
 				//Check if the space up from the actor is free
-				if (_targetMap->getTile(_targetActor->getXPos(), _targetActor->getYPos() + 1)->passability == 0)
+				if (_targetMap->getTile(_targetActor->getYPos() + 1, _targetActor->getXPos())->passability == 0)
 				{
 					//Move the actor up relative to the Map
-					_targetMap->moveActor(_targetActor, 0, 1);
+					_targetMap->moveActor(_targetActor, 1, 0);
 				}
 			}
 			//D Pressed
 			if (event.key.code == 100)
 			{
 				//Check if the space up from the actor is free
-				if (_targetMap->getTile(_targetActor->getXPos() + 1, _targetActor->getYPos())->passability == 0)
+				if (_targetMap->getTile(_targetActor->getYPos(), _targetActor->getXPos() + 1)->passability == 0)
 				{
 					//Move the actor up relative to the Map
-					_targetMap->moveActor(_targetActor, 1, 0);
+					_targetMap->moveActor(_targetActor, 0, 1);
 				}
 			}
 			
