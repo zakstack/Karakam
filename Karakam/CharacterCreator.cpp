@@ -245,7 +245,17 @@ void CharacterCreator::mainMenu()
 					if (yClickPos >= start_but.getPosition().y && yClickPos <= start_but.getPosition().y + start_but.getSize().y)
 					{
 						std::cout << "Game Start!\n";
-						MainGame newGame(_renderWindow, "Bin/Maps/TestMap/Master.txt");
+						std::ofstream myfile("Bin/Actors/Player.txt");
+						if (myfile.is_open())
+						{
+							myfile << "10,10,Player," + std::to_string(strVal) + "," + std::to_string(dexVal) + "," + std::to_string(endVal) + "," + std::to_string(aglVal) + "," + std::to_string(intVal) + "," + std::to_string(lckVal) + ",1,1,0,";
+							myfile.close();
+						}
+						else
+						{
+							std::cout << "Unable to open file";
+						}
+						NewGame mainGame(_renderWindow, "Bin/Actors/Player.txt");
 					}
 				}
 				//STR

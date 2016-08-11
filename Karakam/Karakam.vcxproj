@@ -124,10 +124,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapGen.cpp" />
     <ClCompile Include="MapViewer.cpp" />
     <ClCompile Include="MetaGet.cpp" />
+    <ClCompile Include="NewGame.cpp" />
     <ClCompile Include="TextureLibrary.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
+    <ClCompile Include="VeroniMapGen.cpp" />
     <ClCompile Include="WorldMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,10 +139,13 @@
     <ClInclude Include="CharacterCreator.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapGen.h" />
     <ClInclude Include="MapViewer.h" />
     <ClInclude Include="MetaGet.h" />
+    <ClInclude Include="NewGame.h" />
     <ClInclude Include="TextureLibrary.h" />
     <ClInclude Include="TitleScreen.h" />
+    <ClInclude Include="VeroniMapGen.h" />
     <ClInclude Include="WorldMap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
