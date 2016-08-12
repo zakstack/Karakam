@@ -38,8 +38,69 @@ void MapGen::genTileMap()
 	//Create a Veroni Map as the base of the TileMap
 	VeroniMapGen generator(_MAPXSIZE,_MAPYSIZE,100,5);
 	_map.push_back(generator.getIntMatrix());
+	_graphicRounder();
 	writeToFile("Bin/Maps/" + _mapName + "/Layout.txt",_map.back());
 
+}
+
+void MapGen::_graphicRounder()
+{
+	//BIOME TYPES
+	//0 : Water
+	//1 : Stone
+	//2 : Sand
+	//3 : Grass
+	//4 : Dirt
+
+	for (int y = 0; y < _map.size(); y++)
+	{
+		for (int x = 0; x < _map.at(0).size(); x++)
+		{
+			//For each element in the map
+			//Check the value for all of its neighbors
+			int state;
+			if (_map.at(0).at(x - 1).at(y - 1) == _map.at(0).at(x).at(y))
+			{
+				state = state + 1;
+			}
+			if (_map.at(0).at(x).at(y + 1) == _map.at(0).at(x).at(y))
+			{
+
+			}
+
+			state = 0;
+			//Define drawn image according to the state of the underlying map
+			switch (state)
+			{
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+			case 9:
+				break;
+			case 10:
+				break;
+			case 11:
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }
 
 void MapGen::genDetailMap()

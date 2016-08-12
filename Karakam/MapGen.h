@@ -37,6 +37,7 @@ public:
 
 	//Utilities
 	void genTileMap();
+	void _graphicRounder();
 	void genDetailMap();
 	void genItemMap();
 	void genActorMap();
