@@ -4,7 +4,7 @@
 
 int main()
 {
-	//For Building Test Maps
+	////For Building Test Maps
 	//MapGen newMap("SaveSlot1");
 	//newMap.genTileMap();
 	//newMap.genPassabilityMap();
@@ -19,10 +19,5 @@ int main()
 		TitleScreen Karakam(mainWindow, "Textures/Test/Test.txt");
 	}
 
-	////For Building Test Maps
-	//MapGen newMap("SaveSlot1");
-	//newMap.genTileMap();
-	//newMap.genPassabilityMap();
-	//newMap.genIsWaterMap();
 	return 1;
 }

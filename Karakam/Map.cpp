@@ -34,6 +34,11 @@ sf::Texture Map::getTextureMap()
 	return cat.getTexture();
 }
 
+Actor* Map::getPlayer()
+{
+	return _mainPlayer;
+}
+
 //Setters
 void Map::setTile(int y, int x, Tile newTile)
 {
@@ -132,6 +137,7 @@ void Map::loadMap(std::string mapLoc)
 			Tile newTile;
 			newTile.graphic.setTexture(_tileLibrary.getTexture(std::stoi(mapLayout.at(y).at(x))));
 			newTile.graphic.setPosition(x * 50, y * 50);
+			newTile.tileId = std::stoi(mapLayout.at(y).at(x));
 			newTile.passability = (std::stoi(passability.at(y).at(x)));
 			newTile.isWater = (std::stoi(isWater.at(y).at(x)));
 			newTile.animFrame = 0;
@@ -165,14 +171,87 @@ void Map::loadMap(std::string mapLoc)
 		newActor = new Actor();
 		newActor->loadActor(actorLoadList.at(y).at(0));
 		newActor->setGraphic(&_actorLibrary.getTexture(newActor->getGraphicID()));
+		//This is the case that it is the main character
+		if (newActor->getGraphicID() == 0)
+		{
+			_mainPlayer = newActor;
+		}
 		_actorMap[newActor->getYPos()][newActor->getXPos()] = newActor;
 	}
 	std::cout << "cats";
 }
 
-//TO DO
 void Map::saveMap()
 {
+	//Save the Layout Map
+	std::ofstream myfile("Bin/Maps/SaveSlot1/Layout.txt");
+	if (myfile.is_open())
+	{
+		for (int y = 0; y < _tileMap.size(); y++)
+		{
+			for (int x = 0; x < _tileMap.at(0).size(); x++)
+			{
+				myfile << _tileMap.at(y).at(x).tileId;
+				myfile << ",";
+			}
+			myfile << "\n";
+		}
+		myfile.close();
+	}
+	else std::cout << "Unable to open file";
+	//Save the Passability Map
+	myfile.open("Bin/Maps/SaveSlot1/Passability.txt");
+	if (myfile.is_open())
+	{
+		for (int y = 0; y < _tileMap.size(); y++)
+		{
+			for (int x = 0; x < _tileMap.at(0).size(); x++)
+			{
+				myfile << _tileMap.at(y).at(x).passability;
+				myfile << ",";
+			}
+			myfile << "\n";
+		}
+		myfile.close();
+	}
+	else std::cout << "Unable to open file";
+	//Save the IsWater Map
+	myfile.open("Bin/Maps/SaveSlot1/IsWater.txt");
+	if (myfile.is_open())
+	{
+		for (int y = 0; y < _tileMap.size(); y++)
+		{
+			for (int x = 0; x < _tileMap.at(0).size(); x++)
+			{
+				myfile << _tileMap.at(y).at(x).isWater;
+				myfile << ",";
+			}
+			myfile << "\n";
+		}
+		myfile.close();
+	}
+	else std::cout << "Unable to open file";
+
+	//Save the Location and Stats of the player
+	for (int y = 0; y < _tileMap.size(); y++)
+	{
+		for (int x = 0; x < _tileMap.at(0).size(); x++)
+		{
+			if (_actorMap[y][x] != nullptr)
+			{
+				myfile.open("Bin/Maps/SaveSlot1/ActiveActors/" + _actorMap[y][x]->getName() + ".txt");
+				if (myfile.is_open())
+				{
+					myfile << std::to_string(_actorMap[y][x]->getHealth()) + "," + std::to_string(_actorMap[y][x]->getStamina()) + "," + _actorMap[y][x]->getName() + "," + std::to_string(_actorMap[y][x]->getStr()) + "," + std::to_string(_actorMap[y][x]->getDex()) + "," + std::to_string(_actorMap[y][x]->getEnd()) + "," + std::to_string(_actorMap[y][x]->getAgl()) + "," + std::to_string(_actorMap[y][x]->getInt()) + "," + std::to_string(_actorMap[y][x]->getLck()) + "," + std::to_string(_actorMap[y][x]->getXPos()) + "," + std::to_string(_actorMap[y][x]->getYPos()) + "," + std::to_string(_actorMap[y][x]->getGraphicID()) + ",";
+				}
+				else
+				{
+					std::cout << "File could not be saved.";
+				}
+			}
+		}
+	}
+	myfile.close();
 
 }
 

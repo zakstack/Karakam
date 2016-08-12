@@ -10,7 +10,7 @@ PlayerPanel::PlayerPanel(sf::RenderWindow* renderWindow, Actor* targetActor)
 	_panelText_f.loadFromFile("Bin/Fonts/Body1.otf");
 
 	//Set Up the Status Bar
-	_statusBar_t.setFont(_panelTitle_f);
+	_statusBar_t.setFont(_panelText_f);
 	_statusBar_t.setPosition(0, 0);
 	_statusBar_t.setColor(sf::Color::Red);
 

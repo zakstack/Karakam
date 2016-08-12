@@ -59,6 +59,10 @@ int Actor::getGraphicID()
 {
 	return _graphicID;
 }
+std::string Actor::getName()
+{
+	return _name;
+}
 
 //Setters
 void Actor::setName(std::string newName)

@@ -42,6 +42,7 @@ public:
 	int getXPos();
 	int getYPos();
 	int getGraphicID();
+	std::string getName();
 
 	//Setters
 	void setName(std::string newName);

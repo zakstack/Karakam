@@ -8,6 +8,7 @@
 struct Tile
 {
 	sf::Sprite graphic;
+	int tileId;
 	int passability;
 	bool isWater;
 	int animFrame;
@@ -23,6 +24,7 @@ private:
 	std::vector<std::vector<Tile>> _tileMap;
 	std::vector<std::vector<int>> _itemMap;
 	Actor*** _actorMap;
+	Actor* _mainPlayer;
 	std::string _mapLoc;
 	std::vector<std::pair<int, int>> _exitLocs;
 
@@ -35,6 +37,7 @@ public:
 	Tile* getTile(int x, int y);
 	Actor* getActor(int x, int y);
 	sf::Texture getTextureMap();
+	Actor* getPlayer();
 
 	//Setters
 	void setTile(int x, int y, Tile newTile);

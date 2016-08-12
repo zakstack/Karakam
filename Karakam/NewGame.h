@@ -11,7 +11,7 @@ class NewGame
 private:
 	sf::RenderWindow* _renderWindow;
 public:
-	NewGame(sf::RenderWindow* targetWindow, std::string characterLoc);
+	NewGame(sf::RenderWindow* targetWindow);
 	~NewGame();
 
 	//Utilities

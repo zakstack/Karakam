@@ -10,10 +10,10 @@ MainGame::MainGame(sf::RenderWindow* targetWindow, std::string mapMasterLoc)
 	_gameMap->loadMap(mapMasterLoc);
 
 	//Create the Character Controller
-	ActorController playerCont(_gameMap,_gameMap->getActor(1,1),_renderWindow);
+	ActorController playerCont(_gameMap,_gameMap->getPlayer(),_renderWindow);
 
 	//Create the Player Panel
-	PlayerPanel playerPanel(_renderWindow,_gameMap->getActor(1, 1));
+	PlayerPanel playerPanel(_renderWindow, _gameMap->getPlayer());
 
 	//Create the Cursor
 	_cursorTexture.loadFromFile("Textures/MainGame/Cursor.png");
@@ -25,9 +25,14 @@ MainGame::MainGame(sf::RenderWindow* targetWindow, std::string mapMasterLoc)
 		while (_renderWindow->pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
+				_gameMap->saveMap();
 				_renderWindow->close();
+			}
 			if (event.type == sf::Event::MouseMoved)
+			{
 				_cursor.setPosition(playerCont.getActor()->getXPos() * 50 - 400 + event.mouseMove.x, playerCont.getActor()->getYPos() * 50 - 400 + event.mouseMove.y);
+			}
 			playerCont.tick();
 		}
 

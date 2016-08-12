@@ -46,6 +46,8 @@ public:
 	void genIsWaterMap();
 
 	void writeToFile(std::string fileName, std::vector<std::vector<int>> targetMap);
+
+	void saveFromLoc(std::string fileName);
 };
 
 #endif
