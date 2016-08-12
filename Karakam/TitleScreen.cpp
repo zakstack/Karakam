@@ -93,7 +93,7 @@ void TitleScreen::mainMenu()
 					//Load Game
 					else if (yClickPos >= loadGame_but.getPosition().y && yClickPos <= loadGame_but.getPosition().y + loadGame_but.getSize().y)
 					{
-						NewGame newGame(_renderWindow);
+						MainGame newGame(_renderWindow, "Bin/Maps/SaveSlot1/Master.txt");
 					}
 					//Settings
 					else if (yClickPos >= settings_but.getPosition().y && yClickPos <= settings_but.getPosition().y + settings_but.getSize().y)

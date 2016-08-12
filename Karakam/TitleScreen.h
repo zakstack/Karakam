@@ -6,7 +6,7 @@
 #include <SFML\Graphics.hpp>
 #include "CharacterCreator.h"
 #include "Map.h"
-#include "MapViewer.h"
+#include "MainGame.h"
 
 class TitleScreen
 {

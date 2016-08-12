@@ -4,12 +4,6 @@
 
 int main()
 {
-	////For Building Test Maps
-	//MapGen newMap("SaveSlot1");
-	//newMap.genTileMap();
-	//newMap.genPassabilityMap();
-	//newMap.genIsWaterMap();
-
 	//Load the Title Screen
 	sf::RenderWindow* mainWindow = new sf::RenderWindow;
 	mainWindow->create(sf::VideoMode(800, 800), "Karakam");

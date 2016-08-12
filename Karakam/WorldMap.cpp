@@ -1,7 +1,5 @@
 #include "WorldMap.h"
 
-
-
 WorldMap::WorldMap()
 {
 }
