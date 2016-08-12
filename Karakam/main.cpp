@@ -1,6 +1,7 @@
 #include <string>
 #include "TitleScreen.h"
 #include "MapGen.h"
+#include "MapSplitter.h"
 
 int main()
 {
@@ -11,7 +12,8 @@ int main()
 	{
 		//START THE GAME
 		TitleScreen Karakam(mainWindow, "Textures/Test/Test.txt");
-	}
 
+	}
+	//MapSplitter newSplitter("Textures/Test/tileset.png");
 	return 1;
 }
