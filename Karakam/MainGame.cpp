@@ -12,6 +12,9 @@ MainGame::MainGame(sf::RenderWindow* targetWindow, std::string mapMasterLoc)
 	//Create the Character Controller
 	ActorController playerCont(_gameMap,_gameMap->getActor(1,1),_renderWindow);
 
+	//Create the Player Panel
+	PlayerPanel playerPanel(_renderWindow,_gameMap->getActor(1, 1));
+
 	//Create the Cursor
 	_cursorTexture.loadFromFile("Textures/MainGame/Cursor.png");
 	_cursor.setTexture(_cursorTexture);
@@ -28,14 +31,25 @@ MainGame::MainGame(sf::RenderWindow* targetWindow, std::string mapMasterLoc)
 			playerCont.tick();
 		}
 
-		//Center the View on the Player
-		_renderWindow->setView(sf::View(sf::FloatRect(playerCont.getActor()->getXPos() * 50 - 400, playerCont.getActor()->getYPos() * 50 - 350, 800, 800)));
+		//Center the mainView on the Player
+		sf::View mainView(sf::FloatRect(playerCont.getActor()->getXPos() * 50 - 400, playerCont.getActor()->getYPos() * 50 - 350, 800, 800));
+		//Minimap
+		sf::View miniView(sf::FloatRect(playerCont.getActor()->getXPos() * 50 - 400, playerCont.getActor()->getYPos() * 50 - 350, 800, 800));
+		miniView.zoom(10);
 
 		_renderWindow->clear();
+		//Center the View on the Player
+		_renderWindow->setView(mainView);
+		//_renderWindow->setView(miniView);
+
 		//Draw the Map
-		_gameMap->drawMap();
+		_gameMap->drawMap(playerCont.getActor()->getXPos(),playerCont.getActor()->getYPos(),5);
+		//Draw the Player Panel
+		playerPanel.drawPanel();
 		//Draw the Cursor
 		_renderWindow->draw(_cursor);
+		//Draw the MiniMap
+		
 		_renderWindow->display();
 	}
 }

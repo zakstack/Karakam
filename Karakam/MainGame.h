@@ -4,6 +4,7 @@
 #include <SFML\Graphics.hpp>
 #include "Map.h"
 #include "ActorController.h"
+#include "PlayerPanel.h"
 
 class MainGame
 {

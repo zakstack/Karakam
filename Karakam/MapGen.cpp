@@ -36,8 +36,10 @@ std::vector<std::vector<int>> MapGen::defaultMatrix(int target)
 void MapGen::genTileMap()
 {
 	//Create a Veroni Map as the base of the TileMap
-	VeroniMapGen generator(_MAPXSIZE,_MAPYSIZE,100,4);
-	writeToFile("Bin/Maps/" + _mapName + "/Layout.txt",generator.getIntMatrix());
+	VeroniMapGen generator(_MAPXSIZE,_MAPYSIZE,100,5);
+	_map.push_back(generator.getIntMatrix());
+	writeToFile("Bin/Maps/" + _mapName + "/Layout.txt",_map.back());
+
 }
 
 void MapGen::genDetailMap()
@@ -72,11 +74,35 @@ void MapGen::genSfxMap()
 void MapGen::genPassabilityMap()
 {
 	std::vector<std::vector<int>> matrix = defaultMatrix(0);
+	for (int y = 0; y < _MAPYSIZE; y++)
+	{
+		for (int x = 0; x < _MAPXSIZE; x++)
+		{
+			//Ask if the tile at given x-y is below 2 which are all of the unpassibletiles 
+			if (_map.at(0).at(x).at(y) < 2)
+			{
+				matrix.at(x).at(y) = 1;
+			}
+		}
+	}
+	_map.push_back(matrix);
 	writeToFile("Bin/Maps/" + _mapName + "/Passability.txt", matrix);
 }
 void MapGen::genIsWaterMap()
 {
 	std::vector<std::vector<int>> matrix = defaultMatrix(0);
+	for (int y = 0; y < _MAPYSIZE; y++)
+	{
+		for (int x = 0; x < _MAPXSIZE; x++)
+		{
+			//Ask if the tile at given x-y is below 2 which are all of the unpassibletiles 
+			if (_map.at(0).at(x).at(y) == 0)
+			{
+				matrix.at(x).at(y) = 1;
+			}
+		}
+	}
+	_map.push_back(matrix);
 	writeToFile("Bin/Maps/" + _mapName + "/IsWater.txt", matrix);
 }
 

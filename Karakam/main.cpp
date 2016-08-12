@@ -5,10 +5,10 @@
 int main()
 {
 	//For Building Test Maps
-	MapGen newMap("SaveSlot1");
-	newMap.genTileMap();
-	newMap.genPassabilityMap();
-	newMap.genIsWaterMap();
+	//MapGen newMap("SaveSlot1");
+	//newMap.genTileMap();
+	//newMap.genPassabilityMap();
+	//newMap.genIsWaterMap();
 
 	//Load the Title Screen
 	sf::RenderWindow* mainWindow = new sf::RenderWindow;

@@ -10,6 +10,7 @@ struct Tile
 	sf::Sprite graphic;
 	int passability;
 	bool isWater;
+	int animFrame;
 };
 
 class Map
@@ -41,7 +42,7 @@ public:
 	void moveActor(Actor* targetActor, int newX, int newY);
 
 	//Utility
-	void drawMap();
+	void drawMap(int xDrawCenter, int yDrawCenter, int drawDistance);
 	void loadMap(std::string mapLoc);
 	void saveMap();
 	void newMap(std::string mapLoc);

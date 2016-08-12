@@ -61,12 +61,47 @@ void Map::moveActor(Actor* targetActor, int yMove, int xMove)
 }
 
 //Utility
-void Map::drawMap()
+void Map::drawMap(int xDrawCenter, int yDrawCenter, int drawDistance)
 {
-	for (int y = 0; y < _tileMap.size(); y++)
+	int xMin = 0;
+	if (xDrawCenter - drawDistance > 1)
 	{
-		for (int x = 0; x < _tileMap.at(0).size(); x++)
+		xMin = xDrawCenter - drawDistance;
+	}
+	int xMax = _tileMap.at(0).size();
+	if (xDrawCenter + drawDistance < _tileMap.at(0).size())
+	{
+		xMax = xDrawCenter + drawDistance;
+	}
+	int yMin = 0;
+	if (yDrawCenter - drawDistance > 1)
+	{
+		yMin = yDrawCenter - drawDistance;
+	}
+	int yMax = _tileMap.size();
+	if (yDrawCenter + drawDistance < _tileMap.size())
+	{
+		yMax = yDrawCenter + drawDistance;
+	}
+
+	for (int y = yMin; y < yMax; y++)
+	{
+		for (int x = xMin; x < xMax; x++)
 		{
+			//FIRST PART OF IF IS A TEST FOR WATER ANIMATION
+			if (_tileMap.at(y).at(x).isWater)
+			{
+				if (_tileMap.at(y).at(x).animFrame == 1)
+				{
+					_tileMap.at(y).at(x).animFrame = 0;
+					_tileMap.at(y).at(x).graphic.setTexture(_tileLibrary.getTexture(5));
+				}
+				else
+				{
+					_tileMap.at(y).at(x).animFrame = 1;
+					_tileMap.at(y).at(x).graphic.setTexture(_tileLibrary.getTexture(0));
+				}
+			}
 			_targetWindow->draw(_tileMap.at(y).at(x).graphic);
 			if (_actorMap[y][x] != nullptr)
 			{
@@ -99,6 +134,7 @@ void Map::loadMap(std::string mapLoc)
 			newTile.graphic.setPosition(x * 50, y * 50);
 			newTile.passability = (std::stoi(passability.at(y).at(x)));
 			newTile.isWater = (std::stoi(isWater.at(y).at(x)));
+			newTile.animFrame = 0;
 			newXLine.push_back(newTile);
 		}
 		_tileMap.push_back(newXLine);

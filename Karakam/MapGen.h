@@ -25,8 +25,8 @@ private:
 
 	std::string _mapName;
 
-	const int _MAPXSIZE = 100;
-	const int _MAPYSIZE = 100;
+	const int _MAPXSIZE = 250;
+	const int _MAPYSIZE = 250;
 public:
 	MapGen(std::string mapName);
 	~MapGen();

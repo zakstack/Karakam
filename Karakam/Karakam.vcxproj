@@ -128,6 +128,7 @@
     <ClCompile Include="MapViewer.cpp" />
     <ClCompile Include="MetaGet.cpp" />
     <ClCompile Include="NewGame.cpp" />
+    <ClCompile Include="PlayerPanel.cpp" />
     <ClCompile Include="TextureLibrary.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
     <ClCompile Include="VeroniMapGen.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="MapViewer.h" />
     <ClInclude Include="MetaGet.h" />
     <ClInclude Include="NewGame.h" />
+    <ClInclude Include="PlayerPanel.h" />
     <ClInclude Include="TextureLibrary.h" />
     <ClInclude Include="TitleScreen.h" />
     <ClInclude Include="VeroniMapGen.h" />
