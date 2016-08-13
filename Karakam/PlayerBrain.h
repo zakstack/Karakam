@@ -3,6 +3,7 @@
 
 #include "Brain.h"
 #include "SFML\Graphics.hpp"
+#include <iostream>
 
 class PlayerBrain :
 	public Brain

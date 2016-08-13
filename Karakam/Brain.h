@@ -12,10 +12,12 @@ private:
 protected:
 	//A brain can pull the status of the body of the creature that its attached to according to how that type of brain pulls information. (Some brains may not work in other bodies)
 	std::vector<int*>* _status;
-	//Standard Practice will have the following first 2 stats
+	//Standard Practice will have the following first 4 stats
 	/*
 		0 : xPos
 		1 : yPos
+		2 : xFacing
+		3 : yFacing
 	*/
 	sf::RenderWindow* _renderWindow;
 public:

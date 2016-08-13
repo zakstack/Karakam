@@ -13,24 +13,57 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{c101facc-b0d1-4501-b57f-66120469a1b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Actors">
+      <UniqueIdentifier>{db8a714a-a810-49bd-a157-8ce68131c2d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Actors\Brains">
+      <UniqueIdentifier>{0c01584b-e09d-4edf-b7d5-2d0b80bc0cac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools">
+      <UniqueIdentifier>{d6f04a48-0d05-46f5-9755-795ec4fa0c2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{b1f4d425-2873-4fab-b838-d9a5587ee1ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\UI">
+      <UniqueIdentifier>{7470c587-358d-492c-a8eb-374d5c966653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{c798871d-661a-43ff-b51e-d560613a7678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{0a18b00e-fefa-4478-a023-c49cf982b262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\Actors">
+      <UniqueIdentifier>{fb5b676e-f46c-4d30-9be4-dc6c2c3d9b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\Actors\Brains">
+      <UniqueIdentifier>{a4da02f3-76e3-4ae4-9d69-c6a543b60308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{b285616e-546a-4cc5-b371-45ab1d7e8856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{86cb2257-58b6-4d7e-af47-1a51033f0fa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tools">
+      <UniqueIdentifier>{c0ad3279-3914-4b32-8d91-ab40c4ad6040}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\UI">
+      <UniqueIdentifier>{17755d37-2b9e-441b-8a6b-8a8e00499fe7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MetaGet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TextureLibrary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="WorldMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CharacterCreator.cpp">
@@ -39,44 +72,53 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ActorController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NewGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MapGen.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Brain.cpp">
+      <Filter>Source Files\Entities\Actors\Brains</Filter>
     </ClCompile>
-    <ClCompile Include="VeroniMapGen.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PlayerBrain.cpp">
+      <Filter>Source Files\Entities\Actors\Brains</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerPanel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapSplitter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
+    <ClCompile Include="Actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Actor_Ent.cpp">
+      <Filter>Source Files\Entities\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="VeroniMapGen.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaGet.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="MapSplitter.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPanel.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScreen.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MapGen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Brain.cpp">
+    <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBrain.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="VegitableBrain.cpp">
+      <Filter>Source Files\Entities\Actors\Brains</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MetaGet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TextureLibrary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,9 +126,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WorldMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CharacterCreator.h">
@@ -107,26 +146,35 @@
     <ClInclude Include="MapGen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VeroniMapGen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerPanel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapSplitter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor_Ent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Brain.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="VegitableBrain.h">
+      <Filter>Header Files\Entities\Actors\Brains</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBrain.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities\Actors\Brains</Filter>
+    </ClInclude>
+    <ClInclude Include="Brain.h">
+      <Filter>Header Files\Entities\Actors\Brains</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor_Ent.h">
+      <Filter>Header Files\Entities\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MapSplitter.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaGet.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="VeroniMapGen.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScreen.h">
+      <Filter>Header Files\Graphics\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPanel.h">
+      <Filter>Header Files\Graphics\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(std::vector<std::vector<std::vector<Entity>>>* gameMap, sf::RenderWindow* targetWindow)
+Entity::Entity(std::vector<std::vector<std::vector<Entity*>>>* gameMap, sf::RenderWindow* targetWindow)
 {
 	_entityID = 0;
 	//Entity type Defines what layer of the game map the tile is on
@@ -12,7 +12,8 @@ Entity::Entity(std::vector<std::vector<std::vector<Entity>>>* gameMap, sf::Rende
 		3 : SFX Layer -> Not Yet implemented
 	*/
 	_entityTypeID = 0;
-	_facing = 1;
+	_xFacing = 0;
+	_yFacing = 1;
 	_location.first = 0;
 	_location.second = 0;
 	_gameMap = gameMap;
@@ -32,7 +33,8 @@ std::vector<std::string> Entity::receiveCommand(std::vector<std::string> command
 	{
 		if (command.at(0) == "getFacing")
 		{
-			returnVector.push_back(std::to_string(getFacing()));
+			returnVector.push_back(std::to_string(getXFacing()));
+			returnVector.push_back(std::to_string(getYFacing()));
 		}
 		else if (command.at(0) == "moveEntity")
 		{
@@ -107,9 +109,13 @@ int Entity::getEntityTypeID()
 {
 	return _entityTypeID;
 }
-int Entity::getFacing()
+int Entity::getXFacing()
 {
-	return _facing;
+	return _xFacing;
+}
+int Entity::getYFacing()
+{
+	return _yFacing;
 }
 std::pair<int, int> Entity::getLocation()
 {
@@ -119,11 +125,14 @@ std::pair<int, int> Entity::getLocation()
 std::string Entity::moveEntity(int xPos, int yPos)
 {
 	//IDEA: Can turn this in to a check against the other entity if they can be moved (may want to change this later)
-	if (yPos < _gameMap->at(_entityTypeID).size() && yPos >= 0 && xPos < _gameMap->at(_entityTypeID).at(0).size() && xPos >= 0 && _gameMap->at(_entityTypeID).at(xPos).at(yPos).getExists() == 0)
+	if (yPos < _gameMap->at(_entityTypeID).size() && yPos >= 0 && xPos < _gameMap->at(_entityTypeID).at(0).size() && xPos >= 0 && _gameMap->at(_entityTypeID).at(xPos).at(yPos)->getExists() == 0)
 	{
+		//Set the actors facing direction
+		_yFacing = (_location.second - yPos);
+		_xFacing = (_location.first - xPos);
 		//Move the Actor on the map
 		_gameMap->at(_entityTypeID).at(xPos).at(yPos) = _gameMap->at(_entityTypeID).at(getLocation().first).at(getLocation().second);
-		//Set the actos position in its head
+		//Set the actors position in its head
 		_location.first = xPos;
 		_location.second = yPos;
 		//Return it was a success

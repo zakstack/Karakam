@@ -72,12 +72,28 @@ std::vector<std::string> PlayerBrain::think()
 				}
 				return command;
 			}
+			//E Pressed
+			if (event.key.code == 4)
+			{
+				int xMod;
+				int yMod;
+
+				commandString = "kill," + std::to_string(*_status->at(2)) + "," + std::to_string(*_status->at(3)) + ",";
+				std::vector<std::string> command;
+				size_t pos = 0;
+				while ((pos = commandString.find(",")) != std::string::npos)
+				{
+					command.push_back(commandString.substr(0, pos));
+					commandString.erase(0, pos + 1);
+				}
+				return command;
+			}
 			else
 			{
 				commandString = "FAIL,:Keycode was not found.,";
 			}
 			//Used to test what key is being pressed
-			//std::cout << std::to_string(event.key.code) + "was pressed";
+			//
 		}
 	}
 }

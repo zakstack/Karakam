@@ -12,20 +12,15 @@ class Entity
 {
 private:
 	int _entityID;
-	int _facing;
-	std::vector<std::vector<std::vector<Entity>>>* _gameMap; 
-
-	//Receivable Commands
-	int getEntityID();
-	int getEntityTypeID();
-	int getFacing();
-	std::pair<int, int> getLocation();
 
 protected:
+	std::vector<std::vector<std::vector<Entity*>>>* _gameMap;
 	virtual std::string moveEntity(int xPos, int yPos);
 	sf::RenderWindow* _renderWindow;
 	std::pair<int, int> _location;
 	int _entityTypeID;
+	int _xFacing;
+	int _yFacing;
 	//Entity Type ID's are as follows
 	/*
 		0 : Tile
@@ -34,10 +29,16 @@ protected:
 		3 : SFX Layer -> Not Yet implemented
 	*/
 
+	//Receivable Commands
+	int getEntityID();
+	int getEntityTypeID();
+	int getXFacing();
+	int getYFacing();
+
 	int _exists;
 
 public:
-	Entity(std::vector<std::vector<std::vector<Entity>>>* gameMap,sf::RenderWindow* targetWindow);
+	Entity(std::vector<std::vector<std::vector<Entity*>>>* gameMap,sf::RenderWindow* targetWindow);
 	~Entity();
 
 	//The Command System : Receiving Commands
@@ -46,6 +47,8 @@ public:
 	//Utilities
 	std::vector<std::string> stringToVector(std::string targetString, std::string token);
 	int getExists();
+	//Receivable Command
+	std::pair<int, int> getLocation();
 
 	//TESTING
 	void visualTest();
