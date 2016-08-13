@@ -27,6 +27,8 @@ private:
 
 	const int _MAPXSIZE = 250;
 	const int _MAPYSIZE = 250;
+	const int _DENSITY = 300;
+	const int _VARIANCE = 5;
 public:
 	MapGen(std::string mapName);
 	~MapGen();

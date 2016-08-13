@@ -36,7 +36,7 @@ MainGame::MainGame(sf::RenderWindow* targetWindow, std::string mapMasterLoc)
 			playerCont.tick();
 		}
 
-		//Center the mainView on the Player
+		//MainView
 		sf::View mainView(sf::FloatRect(playerCont.getActor()->getXPos() * 50 - 400, playerCont.getActor()->getYPos() * 50 - 350, 800, 800));
 		//Minimap
 		sf::View miniView(sf::FloatRect(0,0, 10, 10));
@@ -50,9 +50,9 @@ MainGame::MainGame(sf::RenderWindow* targetWindow, std::string mapMasterLoc)
 		//Draw the Map
 		_gameMap->drawMap(playerCont.getActor()->getXPos(), playerCont.getActor()->getYPos(), 10);
 		//Draw to the Mini Map
-		//_renderWindow->setView(miniView);
+		_renderWindow->setView(miniView);
 			//Draw the Map
-			//_gameMap->drawMap(playerCont.getActor()->getXPos(), playerCont.getActor()->getYPos(), 100);
+			_gameMap->drawMap(playerCont.getActor()->getXPos(), playerCont.getActor()->getYPos(), 100);
 		//Center the View on the Player
 		_renderWindow->setView(mainView);
 		//Draw the Player Panel

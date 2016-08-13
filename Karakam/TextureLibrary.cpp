@@ -32,7 +32,7 @@ void TextureLibrary::LoadLibrary(std::string fileLoc)
 			//Add the texture at the given location to the library
 			sf::Texture newTexture;
 			_library.push_back(newTexture);
-			_library.back().loadFromFile(locArray.at(y).at(x));
+			_library.at(y).loadFromFile(locArray.at(y).at(x));
 		}
 	}
 	std::cout << fileLoc + " : Library Loaded\n";
