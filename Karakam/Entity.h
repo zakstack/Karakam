@@ -2,7 +2,7 @@
 #define __ENTITY_H__
 
 //DEPENDENCIES
-#include "SFML\Graphics.hpp";
+#include "SFML\Graphics.hpp"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -11,16 +11,17 @@
 class Entity
 {
 private:
-	int _entityID;
 
 protected:
-	std::vector<std::vector<std::vector<Entity*>>>* _gameMap;
+	Entity**** _gameMap;
 	virtual std::string moveEntity(int xPos, int yPos);
 	sf::RenderWindow* _renderWindow;
 	std::pair<int, int> _location;
 	int _entityTypeID;
+	int _entityID;
 	int _xFacing;
 	int _yFacing;
+	int _exists;
 	//Entity Type ID's are as follows
 	/*
 		0 : Tile
@@ -30,15 +31,13 @@ protected:
 	*/
 
 	//Receivable Commands
-	int getEntityID();
 	int getEntityTypeID();
 	int getXFacing();
 	int getYFacing();
 
-	int _exists;
-
 public:
-	Entity(std::vector<std::vector<std::vector<Entity*>>>* gameMap,sf::RenderWindow* targetWindow);
+	Entity(Entity**** gameMap, sf::RenderWindow* targetWindow,int entityID, int xFacing, int yFacing, int xPosition, int yPosition);
+	Entity();
 	~Entity();
 
 	//The Command System : Receiving Commands
@@ -49,6 +48,7 @@ public:
 	int getExists();
 	//Receivable Command
 	std::pair<int, int> getLocation();
+	int getEntityID();
 
 	//TESTING
 	void visualTest();

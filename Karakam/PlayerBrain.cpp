@@ -2,7 +2,7 @@
 
 PlayerBrain::PlayerBrain(sf::RenderWindow* targetWindow) : Brain(targetWindow)
 {
-	_renderWindow = targetWindow;
+
 }
 
 

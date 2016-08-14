@@ -1,262 +1,155 @@
 #include "Map.h"
 
-Map::Map(sf::RenderWindow* targetWindow)
+Map::Map(std::string masterLoc,sf::RenderWindow* renderWindow)
 {
-	_targetWindow = targetWindow;
+	_renderWindow = renderWindow;
+
+	//Load the Master Location File in to the DirectoryList
+	MetaGet getter;
+	_directorList = getter.getArray(masterLoc);
+
+	//Create the default map
+	_gameMap = new Entity***[_X_SIZE];
+	for (int x = 0; x < _X_SIZE; x++)
+	{
+		_gameMap[x] = new Entity**[_Y_SIZE];
+		for (int y = 0; y < _Y_SIZE; y++)
+		{
+			_gameMap[x][y] = new Entity*[_NUM_OF_LAYERS];
+			std::cout << std::to_string(x) + " " + std::to_string(y) + "\n";
+		}
+	}
+
+	//Load in the Tile Library
+	std::vector<std::vector<std::string>> tileHashList;
+	tileHashList = getter.getArray(_directorList.at(0).at(0));
+	for (int i = 0; i < tileHashList.size(); i++)
+	{
+		std::pair<int, Tile*> newHash;
+		newHash.first = std::stoi(tileHashList.at(i).at(0));
+		std::vector<std::vector<std::string>> tileStats;
+		tileStats = getter.getArray(tileHashList.at(i).at(1));
+		newHash.second = new Tile(_gameMap,_renderWindow, std::stoi(tileStats.at(0).at(0)), std::stoi(tileStats.at(0).at(1)), std::stoi(tileStats.at(0).at(2)), std::stoi(tileStats.at(0).at(3)), std::stoi(tileStats.at(0).at(4)), std::stoi(tileStats.at(0).at(5)), std::stoi(tileStats.at(0).at(6)));
+		_tileLibrary.insert(newHash);
+	}
+	//Load in the Actor Library
+	std::vector<std::vector<std::string>> actorHashList;
+	actorHashList = getter.getArray(_directorList.at(1).at(0));
+	for (int i = 0; i < actorHashList.size(); i++)
+	{
+		std::pair<int, Actor_Ent*> newHash;
+		newHash.first = std::stoi(actorHashList.at(i).at(0));
+		std::vector<std::vector<std::string>> actorStats;
+		actorStats = getter.getArray(actorHashList.at(i).at(1));
+		newHash.second = new Actor_Ent(_gameMap,_renderWindow, std::stoi(actorStats.at(0).at(0)), std::stoi(actorStats.at(0).at(1)), std::stoi(actorStats.at(0).at(2)), std::stoi(actorStats.at(0).at(3)), std::stoi(actorStats.at(0).at(4)), std::stoi(actorStats.at(0).at(5)));
+		_actorLibrary.insert(newHash);
+	}
+
+	//Load the Tile Map
+	std::vector<std::vector<std::string>> tileLayout = getter.getArray("Bin/Maps/SaveSlot1/Maps/Layout.txt");
+	for (int y = 0; y < 100; y++)
+	{
+		for (int x = 0; x < 100; x++)
+		{
+			_gameMap[x][y][0] = _tileLibrary.at(std::stoi(tileLayout.at(y).at(x)));
+		}
+	}
+	//Load the Actor Map
+	std::vector<std::vector<std::string>> actorLayout = getter.getArray("Bin/Maps/SaveSlot1/Maps/ActorMap.txt");
+	for (int y = 0; y < 100; y++)
+	{
+		for (int x = 0; x < 100; x++)
+		{
+			_gameMap[x][y][1] = _actorLibrary.at(std::stoi(actorLayout.at(y).at(x)));
+			if (std::stoi(actorLayout.at(x).at(y)) != 0)
+			{
+				_activeActors.push_back(_gameMap[x][y][1]);
+			}
+		}
+	}
+	test();
 }
 
 Map::~Map()
 {
 }
 
-//Getters
-//TO DO
-int Map::getItem(int x, int y)
+void Map::tick()
 {
-	return 0;
-}
-
-Tile* Map::getTile(int y, int x)
-{
-	return &_tileMap.at(y).at(x);
-}
-
-//TO DO
-Actor* Map::getActor(int y, int x)
-{
-	return _actorMap[y][x];
-}
-
-sf::Texture Map::getTextureMap()
-{
-	sf::RenderTexture cat;
-	cat.create(100, 100);
-	return cat.getTexture();
-}
-
-Actor* Map::getPlayer()
-{
-	return _mainPlayer;
-}
-
-//Setters
-void Map::setTile(int y, int x, Tile newTile)
-{
-	_tileMap.at(y).at(x) = newTile;
-}
-
-// TO DO
-void Map::setItem(int x, int y)
-{
-
-}
-
-void Map::moveActor(Actor* targetActor, int yMove, int xMove)
-{
-	if (_actorMap[targetActor->getYPos() + yMove][targetActor->getXPos() + xMove] == nullptr && getTile(targetActor->getYPos() + yMove, targetActor->getXPos() + xMove)->passability == 0)
+	//Goes through the ActiveActors and applies their movement
+	for (int i = 0; i < _activeActors.size(); i++)
 	{
-		_actorMap[targetActor->getYPos() + yMove][targetActor->getXPos() + xMove] = targetActor;
-		_actorMap[targetActor->getYPos()][targetActor->getXPos()] = nullptr;
-		targetActor->setPosition(targetActor->getXPos() + xMove, targetActor->getYPos() + yMove);
-	}
-	else
-	{
-		//You have hit another actor
+		std::vector<std::string> command;
+		command.push_back("tick");
+		_activeActors.at(i)->receiveCommand(command);
 	}
 }
 
-//Utility
-void Map::drawMap(int xDrawCenter, int yDrawCenter, int drawDistance)
+void Map::test()
 {
-	int xMin = 0;
-	if (xDrawCenter - drawDistance > 1)
-	{
-		xMin = xDrawCenter - drawDistance;
-	}
-	int xMax = _tileMap.at(0).size();
-	if (xDrawCenter + drawDistance < _tileMap.at(0).size())
-	{
-		xMax = xDrawCenter + drawDistance;
-	}
-	int yMin = 0;
-	if (yDrawCenter - drawDistance > 1)
-	{
-		yMin = yDrawCenter - drawDistance;
-	}
-	int yMax = _tileMap.size();
-	if (yDrawCenter + drawDistance < _tileMap.size())
-	{
-		yMax = yDrawCenter + drawDistance;
-	}
-
-	for (int y = yMin; y < yMax; y++)
-	{
-		for (int x = xMin; x < xMax; x++)
-		{
-			//FIRST PART OF IF IS A TEST FOR WATER ANIMATION
-			if (_tileMap.at(y).at(x).isWater)
-			{
-				if (_tileMap.at(y).at(x).animFrame == 1)
-				{
-					_tileMap.at(y).at(x).animFrame = 0;
-					_tileMap.at(y).at(x).graphic.setTexture(_tileLibrary.getTexture(5));
-				}
-				else
-				{
-					_tileMap.at(y).at(x).animFrame = 1;
-					_tileMap.at(y).at(x).graphic.setTexture(_tileLibrary.getTexture(0));
-				}
-			}
-			_targetWindow->draw(_tileMap.at(y).at(x).graphic);
-			if (_actorMap[y][x] != nullptr)
-			{
-				_targetWindow->draw(_actorMap[y][x]->getGraphic());
-			}
-		}
-	}
-}
-
-void Map::loadMap(std::string mapLoc)
-{
-	MetaGet mapGetter;
-	std::vector<std::vector<std::string>> mapData = mapGetter.getArray(mapLoc);
-	//First element is the tile graphic library location
-	_tileLibrary.LoadLibrary(mapData.at(0).at(0));
-	//Second element is the map layout location (these are values associated with the graphics library)
-	std::vector<std::vector<std::string>> mapLayout = mapGetter.getArray(mapData.at(1).at(0));
-	//Third element is the passability location
-	std::vector<std::vector<std::string>> passability = mapGetter.getArray(mapData.at(2).at(0));
-	//Fourth element is the isWater location
-	std::vector<std::vector<std::string>> isWater = mapGetter.getArray(mapData.at(3).at(0));
-	//Once all of these have been found and loaded we can load up the tile map
-	for (int y = 0; y < mapLayout.size(); y++)
-	{
-		std::vector<Tile> newXLine;
-		for (int x = 0; x < mapLayout.at(0).size(); x++)
-		{
-			Tile newTile;
-			newTile.graphic.setTexture(_tileLibrary.getTexture(std::stoi(mapLayout.at(y).at(x))));
-			newTile.graphic.setPosition(x * 50, y * 50);
-			newTile.tileId = std::stoi(mapLayout.at(y).at(x));
-			newTile.passability = (std::stoi(passability.at(y).at(x)));
-			newTile.isWater = (std::stoi(isWater.at(y).at(x)));
-			newTile.animFrame = 0;
-			newXLine.push_back(newTile);
-		}
-		_tileMap.push_back(newXLine);
-	}
-	//Build the Actor Map
-	_actorMap = new Actor**[mapLayout.size()];
-	for (int i = 0; i < mapLayout.size(); ++i)
-	{
-		_actorMap[i] = new Actor*[mapLayout.at(0).size()];
-	}
-	for (int y = 0; y < mapLayout.size(); y++)
-	{
-		for (int x = 0; x < mapLayout.at(0).size(); x++)
-		{
-			_actorMap[y][x] = nullptr;
-		}
-	}
-	//Fifth Element is the Actor Graphic List
-	_actorLibrary.LoadLibrary(mapData.at(4).at(0));
-
-	//Sixth Element is the Actor Master Load List
-	std::vector<std::vector<std::string>> actorLoadList = mapGetter.getArray(mapData.at(5).at(0));
-
-	//Load all of the actors present in the load List
-	for (int y = 0; y < actorLoadList.size(); y++)
-	{
-		Actor* newActor;
-		newActor = new Actor();
-		newActor->loadActor(actorLoadList.at(y).at(0));
-		newActor->setGraphic(&_actorLibrary.getTexture(newActor->getGraphicID()));
-		//This is the case that it is the main character
-		if (newActor->getGraphicID() == 0)
-		{
-			_mainPlayer = newActor;
-		}
-		_actorMap[newActor->getYPos()][newActor->getXPos()] = newActor;
-	}
 	std::cout << "cats";
-}
+	//WORKING ON FINDING A WAY TO PUT A PLAYER BRAIN IN TO THE MAP
+	sf::Sprite test1;
+	sf::Sprite test2;
+	sf::Sprite test3;
+	sf::Sprite test4;
+	sf::Texture test1t;
+	test1t.loadFromFile("Textures/Maps/TestMap/0.png");
+	sf::Texture test2t;
+	test2t.loadFromFile("Textures/Maps/TestMap/1.png");
+	sf::Texture test3t;
+	test3t.loadFromFile("Textures/Maps/TestMap/2.png");
+	sf::Texture test4t;
+	test4t.loadFromFile("Textures/Maps/TestMap/3.png");
+	test1.setTexture(test1t);
+	test2.setTexture(test2t);
+	test3.setTexture(test3t);
+	test4.setTexture(test4t);
 
-void Map::saveMap()
-{
-	//Save the Layout Map
-	std::ofstream myfile("Bin/Maps/SaveSlot1/Layout.txt");
-	if (myfile.is_open())
+	//Begin the game loop
+	// run the program as long as the window is open
+	while (_renderWindow->isOpen())
 	{
-		for (int y = 0; y < _tileMap.size(); y++)
+		// check all the window's events that were triggered since the last iteration of the loop
+		sf::Event event;
+		while (_renderWindow->pollEvent(event))
 		{
-			for (int x = 0; x < _tileMap.at(0).size(); x++)
-			{
-				myfile << _tileMap.at(y).at(x).tileId;
-				myfile << ",";
-			}
-			myfile << "\n";
+			// "close requested" event: we close the window
+			if (event.type == sf::Event::Closed)
+				_renderWindow->close();
+			tick();
 		}
-		myfile.close();
-	}
-	else std::cout << "Unable to open file";
-	//Save the Passability Map
-	myfile.open("Bin/Maps/SaveSlot1/Passability.txt");
-	if (myfile.is_open())
-	{
-		for (int y = 0; y < _tileMap.size(); y++)
+		_renderWindow->clear(sf::Color::Black);
+		// clear the window with black color
+		for (int y = 0; y < 10; y++)
 		{
-			for (int x = 0; x < _tileMap.at(0).size(); x++)
+			for (int x = 0; x < 10; x++)
 			{
-				myfile << _tileMap.at(y).at(x).passability;
-				myfile << ",";
-			}
-			myfile << "\n";
-		}
-		myfile.close();
-	}
-	else std::cout << "Unable to open file";
-	//Save the IsWater Map
-	myfile.open("Bin/Maps/SaveSlot1/IsWater.txt");
-	if (myfile.is_open())
-	{
-		for (int y = 0; y < _tileMap.size(); y++)
-		{
-			for (int x = 0; x < _tileMap.at(0).size(); x++)
-			{
-				myfile << _tileMap.at(y).at(x).isWater;
-				myfile << ",";
-			}
-			myfile << "\n";
-		}
-		myfile.close();
-	}
-	else std::cout << "Unable to open file";
-
-	//Save the Location and Stats of the player
-	for (int y = 0; y < _tileMap.size(); y++)
-	{
-		for (int x = 0; x < _tileMap.at(0).size(); x++)
-		{
-			if (_actorMap[y][x] != nullptr)
-			{
-				myfile.open("Bin/Maps/SaveSlot1/ActiveActors/" + _actorMap[y][x]->getName() + ".txt");
-				if (myfile.is_open())
+				switch (_gameMap[x][y][0]->getEntityID())
 				{
-					myfile << std::to_string(_actorMap[y][x]->getHealth()) + "," + std::to_string(_actorMap[y][x]->getStamina()) + "," + _actorMap[y][x]->getName() + "," + std::to_string(_actorMap[y][x]->getStr()) + "," + std::to_string(_actorMap[y][x]->getDex()) + "," + std::to_string(_actorMap[y][x]->getEnd()) + "," + std::to_string(_actorMap[y][x]->getAgl()) + "," + std::to_string(_actorMap[y][x]->getInt()) + "," + std::to_string(_actorMap[y][x]->getLck()) + "," + std::to_string(_actorMap[y][x]->getXPos()) + "," + std::to_string(_actorMap[y][x]->getYPos()) + "," + std::to_string(_actorMap[y][x]->getGraphicID()) + ",";
+				case 0:
+					test1.setPosition(x * 50, y * 50);
+					_renderWindow->draw(test1);
+					break;
+				case 1:
+					test2.setPosition(x * 50, y * 50);
+					_renderWindow->draw(test2);
+					break;
+				case 2:
+					test3.setPosition(x * 50, y * 50);
+					_renderWindow->draw(test3);
+					break;
+				default:
+					break;
 				}
-				else
+				if (_gameMap[x][y][1] != nullptr && _gameMap[x][y][1]->getEntityID() == 1)
 				{
-					std::cout << "File could not be saved.";
+					test4.setPosition(x * 50, y * 50);
+					_renderWindow->draw(test4);
 				}
 			}
 		}
+
+		_renderWindow->display();
 	}
-	myfile.close();
-
-}
-
-//TO DO
-void Map::newMap(std::string mapLoc)
-{
-
 }

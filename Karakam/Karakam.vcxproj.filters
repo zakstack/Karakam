@@ -55,37 +55,31 @@
     <Filter Include="Header Files\Graphics\UI">
       <UniqueIdentifier>{17755d37-2b9e-441b-8a6b-8a8e00499fe7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Map\MapTypes">
+      <UniqueIdentifier>{0c35268a-758e-4a0b-a3df-056c54b3a9be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map\MapTypes">
+      <UniqueIdentifier>{044baca2-6fa5-4c01-84a6-e83c5c1bd60e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Tiles">
+      <UniqueIdentifier>{2c02e265-477d-4aab-b126-357025cd9a4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\Tiles">
+      <UniqueIdentifier>{32f7bdb8-cd1a-4941-8fcf-c136f052130e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Data Structure">
+      <UniqueIdentifier>{f9614678-fc1a-45e8-ba07-af8bff7bfe7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Data Structure">
+      <UniqueIdentifier>{4b21c4db-cc7d-4c54-9dcd-60761cf7bb39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureLibrary.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WorldMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterCreator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ActorController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NewGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Brain.cpp">
       <Filter>Source Files\Entities\Actors\Brains</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBrain.cpp">
       <Filter>Source Files\Entities\Actors\Brains</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Actor_Ent.cpp">
       <Filter>Source Files\Entities\Actors</Filter>
@@ -102,50 +96,26 @@
     <ClCompile Include="MapSplitter.cpp">
       <Filter>Source Files\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerPanel.cpp">
-      <Filter>Source Files\Graphics\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScreen.cpp">
-      <Filter>Source Files\Graphics\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="MapGen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VegitableBrain.cpp">
       <Filter>Source Files\Entities\Actors\Brains</Filter>
     </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files\Entities\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLibrary.cpp">
+      <Filter>Source Files\Graphics\Data Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextureLibrary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterCreator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NewGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapGen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="VegitableBrain.h">
       <Filter>Header Files\Entities\Actors\Brains</Filter>
     </ClInclude>
@@ -170,11 +140,17 @@
     <ClInclude Include="VeroniMapGen.h">
       <Filter>Header Files\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="TitleScreen.h">
-      <Filter>Header Files\Graphics\UI</Filter>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\Entities\Tiles</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerPanel.h">
-      <Filter>Header Files\Graphics\UI</Filter>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLibrary.h">
+      <Filter>Header Files\Graphics\Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -19,7 +19,7 @@ protected:
 		2 : xFacing
 		3 : yFacing
 	*/
-	sf::RenderWindow* _renderWindow;
+	sf::RenderWindow * _renderWindow;
 public:
 	Brain(sf::RenderWindow* targetWindow);
 	~Brain();

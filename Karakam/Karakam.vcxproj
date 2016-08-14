@@ -118,47 +118,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="ActorController.cpp" />
     <ClCompile Include="Actor_Ent.cpp" />
     <ClCompile Include="Brain.cpp" />
-    <ClCompile Include="CharacterCreator.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainGame.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MapGen.cpp" />
     <ClCompile Include="MapSplitter.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MetaGet.cpp" />
-    <ClCompile Include="NewGame.cpp" />
     <ClCompile Include="PlayerBrain.cpp" />
-    <ClCompile Include="PlayerPanel.cpp" />
     <ClCompile Include="TextureLibrary.cpp" />
-    <ClCompile Include="TitleScreen.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="VegitableBrain.cpp" />
     <ClCompile Include="VeroniMapGen.cpp" />
-    <ClCompile Include="WorldMap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="ActorController.h" />
     <ClInclude Include="Actor_Ent.h" />
     <ClInclude Include="Brain.h" />
-    <ClInclude Include="CharacterCreator.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="MainGame.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="MapGen.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="MapSplitter.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="MetaGet.h" />
-    <ClInclude Include="NewGame.h" />
     <ClInclude Include="PlayerBrain.h" />
-    <ClInclude Include="PlayerPanel.h" />
     <ClInclude Include="TextureLibrary.h" />
-    <ClInclude Include="TitleScreen.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="VegitableBrain.h" />
     <ClInclude Include="VeroniMapGen.h" />
-    <ClInclude Include="WorldMap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

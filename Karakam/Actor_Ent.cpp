@@ -1,12 +1,28 @@
 #include "Actor_Ent.h"
 
-Actor_Ent::Actor_Ent(std::vector<std::vector<std::vector<Entity*>>>* gameMap, sf::RenderWindow* targetWindow, Brain* actorBrain) : Entity (gameMap, targetWindow)
+Actor_Ent::Actor_Ent(Entity**** gameMap, sf::RenderWindow* renderWindow, int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int brainID) : Entity (gameMap, renderWindow,entityID,xFacing,yFacing,xPosition,yPosition)
 {
-	_entityTypeID = 2;
-	if (actorBrain != nullptr)
+	_entityTypeID = 1;
+	//Decide what kind of brain the actor has
+	switch (brainID)
+	{
+		//No Brain
+		case 0:
+			_brain = nullptr;
+			break;
+		//Player Brain
+		case 1:
+			_brain = new PlayerBrain(_renderWindow);
+			break;
+		//Vegitable Brain
+		case 2:
+			_brain = new VegitableBrain(_renderWindow);
+		default:
+			break;
+	}
+	if (_brain != nullptr)
 	{
 		_exists = 1;
-		_brain = actorBrain;
 	}
 	else
 	{
@@ -17,7 +33,7 @@ Actor_Ent::Actor_Ent(std::vector<std::vector<std::vector<Entity*>>>* gameMap, sf
 	_status.push_back(&_xFacing);
 	_status.push_back(&_yFacing);
 	//Plug the brain in to the body
-	if (actorBrain != nullptr)
+	if (_brain != nullptr)
 	{
 		_brain->setStatus(&_status);
 	}
@@ -56,12 +72,21 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 			returnVector.push_back(std::to_string(getXFacing()));
 			returnVector.push_back(std::to_string(getYFacing()));
 		}
+		else if (command.at(0) == "tick")
+		{
+			receiveCommand(getCommand());
+		}
 		else if (command.at(0) == "moveEntity")
 		{
 			//Check that there is a proper coordinate provided
 			if (command.size() == 3)
 			{
-				returnVector.push_back(moveEntity(std::stoi(command.at(1)), std::stoi(command.at(2))));
+				moveEntity(std::stoi(command.at(1)), std::stoi(command.at(2)));
+				returnVector.push_back(std::to_string(getLocation().first));
+				returnVector.push_back(std::to_string(getLocation().second));
+				std::cout << receiveCommand(returnVector).at(0);
+				std::cout << receiveCommand(returnVector).at(1);
+				std::cout << "Moved";
 			}
 			else
 			{
@@ -107,6 +132,10 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 		{
 			returnVector.push_back("Waited!");
 		}
+		else if (command.at(0) == "setBrain")
+		{
+
+		}
 		else
 		{
 			returnVector.push_back("FAIL");
@@ -135,13 +164,11 @@ void Actor_Ent::kill(int xMod, int yMod)
 {
 	int xPos = _location.first - xMod;
 	int yPos = _location.second - yMod;
-	int xMax = _gameMap->at(0).at(0).size();
-	int yMax = _gameMap->at(0).size();
 
-	if (xPos >= 0 && xPos < xMax && yPos >= 0 && yPos < yMax && _gameMap->at(_entityTypeID).at(xPos).at(yPos)->getExists() == 1)
+	if (_gameMap[xPos][yPos][_entityTypeID]->getExists() == 1)
 	{
 		std::vector<std::string> command;
 		command.push_back("die");
-		_gameMap->at(_entityTypeID).at(_location.first - xMod).at(_location.second - yMod)->receiveCommand(command);
+		_gameMap[_location.first - xMod][_location.second - yMod][_entityTypeID]->receiveCommand(command);
 	}
 }

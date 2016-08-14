@@ -25,6 +25,7 @@ public:
 
 	//Getters
 	std::vector<std::vector<int>> getIntMatrix();
+	std::vector<std::vector<int>> newIntMatrix();
 	//std::vector<std::vector<std::string>> getStringMatrix();
 
 	//Test

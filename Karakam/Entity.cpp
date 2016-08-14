@@ -1,8 +1,8 @@
 #include "Entity.h"
 
-Entity::Entity(std::vector<std::vector<std::vector<Entity*>>>* gameMap, sf::RenderWindow* targetWindow)
+Entity::Entity(Entity**** gameMap,sf::RenderWindow* renderWindow,int entityID, int xFacing, int yFacing, int xPosition, int yPosition)
 {
-	_entityID = 0;
+	_entityID = entityID;
 	//Entity type Defines what layer of the game map the tile is on
 	/*
 		The Layers are as follows:
@@ -12,15 +12,25 @@ Entity::Entity(std::vector<std::vector<std::vector<Entity*>>>* gameMap, sf::Rend
 		3 : SFX Layer -> Not Yet implemented
 	*/
 	_entityTypeID = 0;
+	_xFacing = xFacing;
+	_yFacing = yFacing;
+	_location.first = xPosition;
+	_location.second = yPosition;
+	_gameMap = gameMap;
+	_renderWindow = renderWindow;
+	_exists = 0;
+}
+Entity::Entity()
+{
+	_entityTypeID = 0;
 	_xFacing = 0;
-	_yFacing = 1;
+	_yFacing = 0;
 	_location.first = 0;
 	_location.second = 0;
-	_gameMap = gameMap;
+	_gameMap = 0;
+	_renderWindow = nullptr;
 	_exists = 0;
-	_renderWindow = targetWindow;
 }
-
 
 Entity::~Entity()
 {
@@ -125,19 +135,39 @@ std::pair<int, int> Entity::getLocation()
 std::string Entity::moveEntity(int xPos, int yPos)
 {
 	//IDEA: Can turn this in to a check against the other entity if they can be moved (may want to change this later)
-	if (yPos < _gameMap->at(_entityTypeID).size() && yPos >= 0 && xPos < _gameMap->at(_entityTypeID).at(0).size() && xPos >= 0 && _gameMap->at(_entityTypeID).at(xPos).at(yPos)->getExists() == 0)
+	if (xPos >= 0 && yPos >= 0 && _gameMap[xPos][yPos][_entityTypeID] != nullptr && _gameMap[xPos][yPos][_entityTypeID]->getExists() == 0)
 	{
-		//Set the actors facing direction
-		_yFacing = (_location.second - yPos);
-		_xFacing = (_location.first - xPos);
-		//Move the Actor on the map
-		_gameMap->at(_entityTypeID).at(xPos).at(yPos) = _gameMap->at(_entityTypeID).at(getLocation().first).at(getLocation().second);
-		//Set the actors position in its head
-		_location.first = xPos;
-		_location.second = yPos;
-		//Return it was a success
-		std::cout << getLocation().first + " " + getLocation().second;
-		return "SUCCESS,";
+		std::vector<std::string> command;
+		command.push_back("getPassability");
+		bool passable;
+		std::string response = _gameMap[xPos][yPos][0]->receiveCommand(command).at(0);
+		if (response != "FAIL" && std::stoi(response) == 0)
+		{
+			passable = true;
+		}
+		else
+		{
+			passable = false;
+		}
+		if (passable == true)
+		{
+			//Set the actors facing direction
+			_yFacing = (_location.second - yPos);
+			_xFacing = (_location.first - xPos);
+			//Move the Actor on the map
+			_gameMap[xPos][yPos][_entityTypeID] = _gameMap[getLocation().first][getLocation().second][_entityTypeID];
+			_gameMap[getLocation().first][getLocation().second][_entityTypeID] = new Entity();
+			//Set the actors position in its head
+			_location.first = xPos;
+			_location.second = yPos;
+			//Return it was a success
+			std::cout << getLocation().first + " " + getLocation().second;
+			return "SUCCESS,";
+		}
+		else
+		{
+			return "FAIL,";
+		}
 	}
 	else
 	{

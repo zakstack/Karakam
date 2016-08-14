@@ -7,6 +7,7 @@ VeroniMapGen::VeroniMapGen(int xSize, int ySize,int density, int variance)
 	_density = density;
 	_variance = variance;
 	std::srand(time(NULL));
+	newIntMatrix();
 }
 
 VeroniMapGen::~VeroniMapGen()
@@ -15,6 +16,11 @@ VeroniMapGen::~VeroniMapGen()
 
 //Getters
 std::vector<std::vector<int>> VeroniMapGen::getIntMatrix()
+{
+	return _matrix;
+}
+
+std::vector<std::vector<int>> VeroniMapGen::newIntMatrix()
 {
 	//Build the default matrix
 	_matrix.clear();

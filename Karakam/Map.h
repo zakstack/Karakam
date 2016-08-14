@@ -1,54 +1,37 @@
 #ifndef __MAP_H__
 #define __MAP_H__
 
+#include <vector>
+#include <string>
+#include "Actor_Ent.h"
+#include "Tile.h"
 #include "MetaGet.h"
-#include "TextureLibrary.h"
-#include "Actor.h"
-
-struct Tile
-{
-	sf::Sprite graphic;
-	int tileId;
-	int passability;
-	bool isWater;
-	int animFrame;
-};
+#include <unordered_map>
+#include "VeroniMapGen.h"
 
 class Map
 {
 private:
-	sf::RenderWindow* _targetWindow;
-	TextureLibrary _tileLibrary;
-	TextureLibrary _actorLibrary;
-	TextureLibrary _itemLibrary;
-	std::vector<std::vector<Tile>> _tileMap;
-	std::vector<std::vector<int>> _itemMap;
-	Actor*** _actorMap;
-	Actor* _mainPlayer;
-	std::string _mapLoc;
-	std::vector<std::pair<int, int>> _exitLocs;
+	const int _NUM_OF_LAYERS = 2;
+	const int _X_SIZE = 100;
+	const int _Y_SIZE = 100;
+	std::vector<std::vector<std::string>> _directorList;
+	std::vector<Entity*> _activeActors;
+	sf::RenderWindow* _renderWindow;
 
+protected:
+	//Libraries for all of the standard Entity Types
+	std::unordered_map<int,Actor_Ent*> _actorLibrary;
+	std::unordered_map<int,Tile*> _tileLibrary;
+
+	Entity**** _gameMap;
 public:
-	Map(sf::RenderWindow* targetWindow);
+	Map(std::string masterLoc,sf::RenderWindow* renderWindow);
 	~Map();
 
-	//Getters
-	int getItem(int x, int y);
-	Tile* getTile(int x, int y);
-	Actor* getActor(int x, int y);
-	sf::Texture getTextureMap();
-	Actor* getPlayer();
+	void tick();
 
-	//Setters
-	void setTile(int x, int y, Tile newTile);
-	void setItem(int x, int y);
-	void moveActor(Actor* targetActor, int newX, int newY);
-
-	//Utility
-	void drawMap(int xDrawCenter, int yDrawCenter, int drawDistance);
-	void loadMap(std::string mapLoc);
-	void saveMap();
-	void newMap(std::string mapLoc);
+	void test();
 };
 
 #endif

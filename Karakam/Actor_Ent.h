@@ -3,6 +3,8 @@
 
 #include "Entity.h"
 #include "Brain.h"
+#include "VegitableBrain.h"
+#include "PlayerBrain.h"
 
 class Actor_Ent :
 	public Entity
@@ -11,7 +13,7 @@ private:
 	Brain* _brain;
 	std::vector<int*> _status;
 public:
-	Actor_Ent(std::vector<std::vector<std::vector<Entity*>>>* gameMap,sf::RenderWindow* targetWindow, Brain* actorBrain);
+	Actor_Ent(Entity**** gameMap, sf::RenderWindow* renderWindow, int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int brainID);
 	~Actor_Ent();
 
 	//The Command System : Issuing Commands
@@ -22,6 +24,7 @@ public:
 
 	virtual void die();
 	virtual void kill(int xMod, int yMod);
+	void loadBrain();
 };
 
 #endif 
