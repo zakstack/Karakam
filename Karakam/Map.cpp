@@ -88,7 +88,7 @@ void Map::tick()
 void Map::test()
 {
 	std::cout << "cats";
-	//WORKING ON FINDING A WAY TO PUT A PLAYER BRAIN IN TO THE MAP
+	//These are test sprites until the new graphic system is installed
 	sf::Sprite test1;
 	sf::Sprite test2;
 	sf::Sprite test3;
@@ -120,10 +120,28 @@ void Map::test()
 			tick();
 		}
 		_renderWindow->clear(sf::Color::Black);
-		// clear the window with black color
-		for (int y = 0; y < 10; y++)
+		int yMin;
+		if (_activeActors.at(0)->getLocation().second - 5 >= 0)
 		{
-			for (int x = 0; x < 10; x++)
+			yMin = _activeActors.at(0)->getLocation().second - 5;
+		}
+		else
+		{
+			yMin = 0;
+		}
+		int xMin;
+		if (_activeActors.at(0)->getLocation().first - 5 >= 0)
+		{
+			xMin = _activeActors.at(0)->getLocation().first - 5;
+		}
+		else
+		{
+			xMin = 0;
+		}
+		// clear the window with black color
+		for (int y = yMin; y < _activeActors.at(0)->getLocation().second + 6; y++)
+		{
+			for (int x = xMin; x < _activeActors.at(0)->getLocation().first + 6; x++)
 			{
 				switch (_gameMap[x][y][0]->getEntityID())
 				{
@@ -145,6 +163,9 @@ void Map::test()
 				if (_gameMap[x][y][1] != nullptr && _gameMap[x][y][1]->getEntityID() == 1)
 				{
 					test4.setPosition(x * 50, y * 50);
+					//Center the mainView on the Player
+					sf::View mainView(sf::FloatRect(_gameMap[x][y][1]->getLocation().first * 50 - 400, _gameMap[x][y][1]->getLocation().second * 50 - 350, 800, 800));
+					_renderWindow->setView(mainView);
 					_renderWindow->draw(test4);
 				}
 			}
