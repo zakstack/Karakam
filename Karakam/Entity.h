@@ -16,12 +16,11 @@ protected:
 	Entity**** _gameMap;
 	virtual std::string moveEntity(int xPos, int yPos);
 	sf::RenderWindow* _renderWindow;
-	std::pair<int, int> _location;
 	int _entityTypeID;
 	int _entityID;
 	int _xFacing;
 	int _yFacing;
-	int _exists;
+	
 	//Entity Type ID's are as follows
 	/*
 		0 : Tile
@@ -31,14 +30,15 @@ protected:
 	*/
 
 	//Receivable Commands
-	int getEntityTypeID();
 	int getXFacing();
 	int getYFacing();
 
 public:
-	Entity(Entity**** gameMap, sf::RenderWindow* targetWindow,int entityID, int xFacing, int yFacing, int xPosition, int yPosition);
+	Entity(Entity**** gameMap, sf::RenderWindow* targetWindow,int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int zPosition);
 	Entity();
 	~Entity();
+
+	int _exists;
 
 	//The Command System : Receiving Commands
 	virtual std::vector<std::string> receiveCommand(std::vector<std::string> command);
@@ -49,12 +49,15 @@ public:
 	//Receivable Command
 	std::pair<int, int> getLocation();
 	int getEntityID();
+	int getEntityTypeID();
 
 	//TESTING
 	void visualTest();
 	std::string _TESTLIBRARYLOC = "Textures/Test/Load.txt";
 	TextureLibrary _testLibrary;
 	sf::Sprite _entityGraphic;
+	std::pair<int, int> _location;
+	int _zPosition;
 
 };
 #endif

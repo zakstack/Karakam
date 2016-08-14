@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile(Entity**** mainMap, sf::RenderWindow* renderWindow,int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int passability, int hardness) : Entity(mainMap,renderWindow,entityID,xFacing,yFacing,xPosition,yPosition)
+Tile::Tile(Entity**** mainMap, sf::RenderWindow* renderWindow,int entityID, int xFacing, int yFacing, int xPosition, int yPosition,int zPosition, int passability, int hardness) : Entity(mainMap,renderWindow,entityID,xFacing,yFacing,xPosition,yPosition,zPosition)
 {
 	_entityID = entityID;
 	_passability = passability;
@@ -57,6 +57,11 @@ std::vector<std::string> Tile::receiveCommand(std::vector<std::string> command)
 		else if (command.at(0) == "wait")
 		{
 			returnVector.push_back("Waited!");
+		}
+		else if (command.at(0) == "dig")
+		{
+			_gameMap[_location.first][_location.second][_zPosition]->_exists = false;
+			_gameMap[_location.first][_location.second][_zPosition] = nullptr;
 		}
 		else
 		{

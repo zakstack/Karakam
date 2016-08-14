@@ -1,8 +1,11 @@
 #include "Actor_Ent.h"
 
-Actor_Ent::Actor_Ent(Entity**** gameMap, sf::RenderWindow* renderWindow, int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int brainID) : Entity (gameMap, renderWindow,entityID,xFacing,yFacing,xPosition,yPosition)
+Actor_Ent::Actor_Ent(Entity**** gameMap, sf::RenderWindow* renderWindow, int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int zPosition, int brainID) : Entity (gameMap, renderWindow,entityID,xFacing,yFacing,xPosition,yPosition,zPosition)
 {
 	_entityTypeID = 1;
+	_entityID = entityID;
+	_location.first = xPosition;
+	_location.second = yPosition;
 	//Decide what kind of brain the actor has
 	switch (brainID)
 	{
@@ -82,11 +85,6 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 			if (command.size() == 3)
 			{
 				moveEntity(std::stoi(command.at(1)), std::stoi(command.at(2)));
-				returnVector.push_back(std::to_string(getLocation().first));
-				returnVector.push_back(std::to_string(getLocation().second));
-				std::cout << receiveCommand(returnVector).at(0);
-				std::cout << receiveCommand(returnVector).at(1);
-				std::cout << "Moved";
 			}
 			else
 			{
@@ -102,6 +100,13 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 		else if (command.at(0) == "getEntityTypeID")
 		{
 			returnVector.push_back(std::to_string(getEntityTypeID()));
+		}
+		else if (command.at(0) == "getEntityTypeID_f")
+		{
+			if (_location.first - _xFacing >= 0 && _location.second + _yFacing >0 && _gameMap[_location.first - _xFacing][_location.second + _yFacing][_zPosition] != nullptr)
+			{
+				std::cout << std::to_string(_gameMap[_location.first - _xFacing][_location.second + _yFacing][_zPosition]->getEntityID());
+			}
 		}
 		else if (command.at(0) == "getLocation")
 		{
@@ -126,6 +131,16 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 				//ERROR
 				//Can't Kill the Actor
 				returnVector.push_back("FAIL: Can't Kill this Actor\n");
+			}
+		}
+		else if (command.at(0) == "dig")
+		{
+			if (_location.first - _xFacing >= 0 && _location.second - _yFacing >0 && _gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition] != nullptr)
+			{
+				if (_gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition]->getEntityID() == 2)
+				{
+					_gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition]->receiveCommand(command);
+				}
 			}
 		}
 		else if (command.at(0) == "wait")

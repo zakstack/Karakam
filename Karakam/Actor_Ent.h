@@ -13,7 +13,7 @@ private:
 	Brain* _brain;
 	std::vector<int*> _status;
 public:
-	Actor_Ent(Entity**** gameMap, sf::RenderWindow* renderWindow, int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int brainID);
+	Actor_Ent(Entity**** gameMap, sf::RenderWindow* renderWindow, int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int zPosition, int brainID);
 	~Actor_Ent();
 
 	//The Command System : Issuing Commands

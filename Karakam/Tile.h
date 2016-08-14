@@ -10,7 +10,7 @@ protected:
 	int _passability;
 	int _hardness;
 public:
-	Tile(Entity**** mainMap,sf::RenderWindow* renderWindow, int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int passability, int hardness);
+	Tile(Entity**** mainMap,sf::RenderWindow* renderWindow, int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int zPosition, int passability, int hardness);
 	~Tile();
 
 	//The Command System : Receiving Commands :: Overwritten from Entity. Copied from Actor_Ent currently

@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(Entity**** gameMap,sf::RenderWindow* renderWindow,int entityID, int xFacing, int yFacing, int xPosition, int yPosition)
+Entity::Entity(Entity**** gameMap,sf::RenderWindow* renderWindow,int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int zPosition)
 {
 	_entityID = entityID;
 	//Entity type Defines what layer of the game map the tile is on
@@ -16,6 +16,7 @@ Entity::Entity(Entity**** gameMap,sf::RenderWindow* renderWindow,int entityID, i
 	_yFacing = yFacing;
 	_location.first = xPosition;
 	_location.second = yPosition;
+	_zPosition = zPosition;
 	_gameMap = gameMap;
 	_renderWindow = renderWindow;
 	_exists = 0;
@@ -135,7 +136,9 @@ std::pair<int, int> Entity::getLocation()
 std::string Entity::moveEntity(int xPos, int yPos)
 {
 	//IDEA: Can turn this in to a check against the other entity if they can be moved (may want to change this later)
-	if (xPos >= 0 && yPos >= 0 && _gameMap[xPos][yPos][_entityTypeID] != nullptr && _gameMap[xPos][yPos][_entityTypeID]->getExists() == 0)
+	_yFacing = (_location.second - yPos);
+	_xFacing = (_location.first - xPos);
+	if (xPos >= 0 && yPos >= 0 && _gameMap[xPos][yPos][_zPosition] == nullptr)
 	{
 		std::vector<std::string> command;
 		command.push_back("getPassability");
@@ -155,13 +158,13 @@ std::string Entity::moveEntity(int xPos, int yPos)
 			_yFacing = (_location.second - yPos);
 			_xFacing = (_location.first - xPos);
 			//Move the Actor on the map
-			_gameMap[xPos][yPos][_entityTypeID] = _gameMap[getLocation().first][getLocation().second][_entityTypeID];
-			_gameMap[getLocation().first][getLocation().second][_entityTypeID] = new Entity();
+			_gameMap[xPos][yPos][_zPosition] = _gameMap[getLocation().first][getLocation().second][_zPosition];
+			_gameMap[getLocation().first][getLocation().second][_zPosition] = nullptr;
 			//Set the actors position in its head
 			_location.first = xPos;
 			_location.second = yPos;
 			//Return it was a success
-			std::cout << getLocation().first + " " + getLocation().second;
+			std::cout << std::to_string(getLocation().first) + " " + std::to_string(getLocation().second) + "\n";
 			return "SUCCESS,";
 		}
 		else

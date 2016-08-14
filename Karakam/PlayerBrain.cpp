@@ -75,17 +75,15 @@ std::vector<std::string> PlayerBrain::think()
 			//E Pressed
 			if (event.key.code == 4)
 			{
-				int xMod;
-				int yMod;
-
-				commandString = "kill," + std::to_string(*_status->at(2)) + "," + std::to_string(*_status->at(3)) + ",";
 				std::vector<std::string> command;
-				size_t pos = 0;
-				while ((pos = commandString.find(",")) != std::string::npos)
-				{
-					command.push_back(commandString.substr(0, pos));
-					commandString.erase(0, pos + 1);
-				}
+				command.push_back("getEntityTypeID_f");
+				return command;
+			}
+			//R Pressed
+			if (event.key.code == 17)
+			{
+				std::vector<std::string> command;
+				command.push_back("dig");
 				return command;
 			}
 			else

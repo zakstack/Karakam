@@ -8,6 +8,7 @@
 #include "MetaGet.h"
 #include <unordered_map>
 #include "VeroniMapGen.h"
+#include "TextureLibrary.h"
 
 class Map
 {
@@ -18,6 +19,9 @@ private:
 	std::vector<std::vector<std::string>> _directorList;
 	std::vector<Entity*> _activeActors;
 	sf::RenderWindow* _renderWindow;
+
+	TextureLibrary _tileGraphicLibrary;
+	TextureLibrary _actorGraphicLibrary;
 
 protected:
 	//Libraries for all of the standard Entity Types
@@ -32,6 +36,8 @@ public:
 	void tick();
 
 	void test();
+
+	void dumpToFile(std::string fileLoc, int zLevel);
 };
 
 #endif
