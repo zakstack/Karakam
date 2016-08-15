@@ -189,10 +189,15 @@ void Map::test()
 						if (z > _activeActors.at(0)->_zPosition)
 						{
 							//Draw a black square
-							drawSprite.setColor(sf::Color(1, 1, 255, 255));
+							//drawSprite.setColor(sf::Color(1, 1, 1, 255));
+							//_renderWindow->draw(drawSprite);
+						}
+						else if (z < _activeActors.at(0)->_zPosition - 1)
+						{
+							drawSprite.setColor(sf::Color(122/(_activeActors.at(0)->_zPosition - z), 122/(_activeActors.at(0)->_zPosition - z), 122/(_activeActors.at(0)->_zPosition - z), 255));
 							_renderWindow->draw(drawSprite);
 						}
-						else if (z < _activeActors.at(0)->_zPosition)
+						else if (z == _activeActors.at(0)->_zPosition - 1)
 						{
 							drawSprite.setColor(sf::Color(255, 255, 255, 255));
 							_renderWindow->draw(drawSprite);
