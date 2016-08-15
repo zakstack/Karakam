@@ -13,7 +13,7 @@
 class Map
 {
 private:
-	const int _NUM_OF_LAYERS = 2;
+	const int _Z_SIZE = 5;
 	const int _X_SIZE = 100;
 	const int _Y_SIZE = 100;
 	std::vector<std::vector<std::string>> _directorList;

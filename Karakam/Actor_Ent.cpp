@@ -33,6 +33,7 @@ Actor_Ent::Actor_Ent(Entity**** gameMap, sf::RenderWindow* renderWindow, int ent
 	}
 	_status.push_back(&_location.first);
 	_status.push_back(&_location.second);
+	_status.push_back(&_zPosition);
 	_status.push_back(&_xFacing);
 	_status.push_back(&_yFacing);
 	//Plug the brain in to the body
@@ -82,9 +83,9 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 		else if (command.at(0) == "moveEntity")
 		{
 			//Check that there is a proper coordinate provided
-			if (command.size() == 3)
+			if (command.size() == 4)
 			{
-				moveEntity(std::stoi(command.at(1)), std::stoi(command.at(2)));
+				moveEntity(std::stoi(command.at(1)), std::stoi(command.at(2)), std::stoi(command.at(3)));
 			}
 			else
 			{
@@ -103,9 +104,9 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 		}
 		else if (command.at(0) == "getEntityTypeID_f")
 		{
-			if (_location.first - _xFacing >= 0 && _location.second + _yFacing >0 && _gameMap[_location.first - _xFacing][_location.second + _yFacing][_zPosition] != nullptr)
+			if (_location.first - _xFacing >= 0 && _location.second - _yFacing >0 && _gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition] != nullptr)
 			{
-				std::cout << std::to_string(_gameMap[_location.first - _xFacing][_location.second + _yFacing][_zPosition]->getEntityID());
+				std::cout << std::to_string(_gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition]->getEntityID());
 			}
 		}
 		else if (command.at(0) == "getLocation")
@@ -137,7 +138,7 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 		{
 			if (_location.first - _xFacing >= 0 && _location.second - _yFacing >0 && _gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition] != nullptr)
 			{
-				if (_gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition]->getEntityID() == 2)
+				if (_gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition] != nullptr)
 				{
 					_gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition]->receiveCommand(command);
 				}

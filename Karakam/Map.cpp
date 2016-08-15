@@ -18,7 +18,7 @@ Map::Map(std::string masterLoc,sf::RenderWindow* renderWindow)
 		_gameMap[x] = new Entity**[_Y_SIZE];
 		for (int y = 0; y < _Y_SIZE; y++)
 		{
-			_gameMap[x][y] = new Entity*[_NUM_OF_LAYERS];
+			_gameMap[x][y] = new Entity*[_Z_SIZE];
 			std::cout << std::to_string(x) + " " + std::to_string(y) + "\n";
 		}
 	}
@@ -35,6 +35,7 @@ Map::Map(std::string masterLoc,sf::RenderWindow* renderWindow)
 		newHash.second = new Tile(_gameMap,_renderWindow, std::stoi(tileStats.at(0).at(0)), std::stoi(tileStats.at(0).at(1)), std::stoi(tileStats.at(0).at(2)), std::stoi(tileStats.at(0).at(3)), std::stoi(tileStats.at(0).at(4)), std::stoi(tileStats.at(0).at(5)), std::stoi(tileStats.at(0).at(6)), std::stoi(tileStats.at(0).at(7)));
 		_tileLibrary.insert(newHash);
 	}
+
 	//Load in the Actor Library
 	std::vector<std::vector<std::string>> actorHashList;
 	actorHashList = getter.getArray(_directorList.at(1).at(0));
@@ -60,54 +61,43 @@ Map::Map(std::string masterLoc,sf::RenderWindow* renderWindow)
 		}
 	}
 
+	
+	VeroniMapGen newGen(_X_SIZE, _Y_SIZE, _Z_SIZE, 200, 5);
+	//Generate the maps Veroni Cube
+	//std::vector<std::vector<std::vector<int>>> targetMap = newGen.generateWorkingMap(1);
+	//newGen.writeCubeToFile("Bin/Maps/SaveSlot1/Maps/Test", 5);
+	//Load the maps Veroni Cube
+	std::vector<std::vector<std::vector<int>>> targetMap = newGen.loadCubeFromFile("Bin/Maps/SaveSlot1/Maps/Test",5);
+
 	//Load the Tile Map
-	std::vector<std::vector<std::string>> tileLayout = getter.getArray("Bin/Maps/SaveSlot1/Maps/Layout.txt");
-	for (int y = 0; y < 100; y++)
+	for (int z = 0; z < _Z_SIZE; z++)
 	{
-		for (int x = 0; x < 100; x++)
+		for (int y = 0; y < _Y_SIZE; y++)
 		{
-			if (_tileLibrary.at(std::stoi(tileLayout.at(y).at(x)))->getEntityID() == 2)
+			for (int x = 0; x < _X_SIZE; x++)
 			{
-				_gameMap[x][y][1] = new Tile(*_tileLibrary.at(std::stoi(tileLayout.at(y).at(x))));
-				_gameMap[x][y][1]->_location.first = x;
-				_gameMap[x][y][1]->_location.second = y;
-				_gameMap[x][y][1]->_zPosition = 1;
-				_gameMap[x][y][0] = new Tile(*_tileLibrary.at(1));
-				_gameMap[x][y][0]->_location.first = x;
-				_gameMap[x][y][0]->_location.second = y;
-				_gameMap[x][y][0]->_zPosition = 0;
-			}
-			else
-			{
-				_gameMap[x][y][0] = new Tile(*_tileLibrary.at((std::stoi(tileLayout.at(y).at(x)))));
-				_gameMap[x][y][0]->_location.first = x;
-				_gameMap[x][y][0]->_location.second = y;
-				_gameMap[x][y][0]->_zPosition = 0;
+				//If it is not a 0 in the map set it to the designated tile
+				if (targetMap.at(z).at(x).at(y) != 0)
+				{
+					_gameMap[x][y][z] = new Tile(*_tileLibrary.at(targetMap.at(z).at(x).at(y)));
+					_gameMap[x][y][z]->_location.first = x;
+					_gameMap[x][y][z]->_location.second = y;
+					_gameMap[x][y][z]->_zPosition = z;
+				}
+				else
+				{
+					_gameMap[x][y][z] = nullptr;
+				}
 			}
 		}
 	}
 
-	//Load the Actor Map
+	//Load the Player Actor
 	std::vector<std::vector<std::string>> actorLayout = getter.getArray("Bin/Maps/SaveSlot1/Maps/ActorMap.txt");
-	for (int y = 0; y < 100; y++)
-	{
-		for (int x = 0; x < 100; x++)
-		{
-			/*if (std::stoi(actorLayout.at(x).at(y)) != 0 && _gameMap[x][y][1] == nullptr)
-			{
-				_gameMap[x][y][1] = _actorLibrary.at(std::stoi(actorLayout.at(y).at(x)));
-				_activeActors.push_back(_gameMap[x][y][1]);
-			}*/
-			//Hacky fix : Spot for the player
-			if (x == 1 && y == 1)
-			{
-				_gameMap[x][y][1] = _actorLibrary.at(std::stoi(actorLayout.at(y).at(x)));
-				_activeActors.push_back(_gameMap[x][y][1]);
-			}
-		}
-	}
-	dumpToFile("Bin/Tests/0Level.txt", 0);
-	dumpToFile("Bin/Tests/1Level.txt", 1);
+	_gameMap[1][1][1] = _actorLibrary.at(std::stoi(actorLayout.at(1).at(1)));
+	_activeActors.push_back(_gameMap[1][1][1]);
+	_activeActors.back()->_zPosition = 1;
+
 	test();
 }
 
@@ -173,9 +163,9 @@ void Map::test()
 		{
 			for (int x = xMin; x < _activeActors.at(0)->getLocation().first + 6; x++)
 			{
-				for (int z = 0; z < 2; z++)
+				for (int z = 0; z < _Z_SIZE; z++)
 				{
-					if (_gameMap[x][y][z] != nullptr && _gameMap[x][y][z]->getExists() == 1)
+					if (x >= 0 && x < _X_SIZE && y >= 0 & y < _Y_SIZE && z >= 0 && z < _Z_SIZE && _gameMap[x][y][z] != nullptr)
 					{
 						switch (_gameMap[x][y][z]->getEntityTypeID())
 						{
@@ -193,8 +183,26 @@ void Map::test()
 							default:
 								break;
 						}
+
 						drawSprite.setPosition(x * 50, y * 50);
-						_renderWindow->draw(drawSprite);
+						//Determine where the sprite is in accordance to where the player is and draw accordingly
+						if (z > _activeActors.at(0)->_zPosition)
+						{
+							//Draw a black square
+							drawSprite.setColor(sf::Color(1, 1, 255, 255));
+							_renderWindow->draw(drawSprite);
+						}
+						else if (z < _activeActors.at(0)->_zPosition)
+						{
+							drawSprite.setColor(sf::Color(255, 255, 255, 255));
+							_renderWindow->draw(drawSprite);
+						}
+						else
+						{
+							drawSprite.setColor(sf::Color(255, 1, 1, 255));
+							//Draw what the sprite looks like
+							_renderWindow->draw(drawSprite);
+						}
 					}
 				}
 			}

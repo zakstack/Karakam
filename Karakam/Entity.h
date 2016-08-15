@@ -14,7 +14,7 @@ private:
 
 protected:
 	Entity**** _gameMap;
-	virtual std::string moveEntity(int xPos, int yPos);
+	virtual std::string moveEntity(int xPos, int yPos, int zPos);
 	sf::RenderWindow* _renderWindow;
 	int _entityTypeID;
 	int _entityID;

@@ -23,7 +23,7 @@ std::vector<std::string> PlayerBrain::think()
 			//W Pressed
 			if (event.key.code == 119)
 			{
-				commandString = "moveEntity," +std::to_string(*this->_status->at(0)) + "," + std::to_string(*this->_status->at(1) - 1) + ",";
+				commandString = "moveEntity," + std::to_string(*this->_status->at(0)) + "," + std::to_string(*this->_status->at(1) - 1) + "," + std::to_string(*this->_status->at(2)) + ",";
 				std::vector<std::string> command;
 				size_t pos = 0;
 				while ((pos = commandString.find(",")) != std::string::npos)
@@ -36,7 +36,7 @@ std::vector<std::string> PlayerBrain::think()
 			//A Pressed
 			if (event.key.code == 97)
 			{
-				commandString = "moveEntity," + std::to_string(*this->_status->at(0) - 1) + "," + std::to_string(*this->_status->at(1)) + ",";
+				commandString = "moveEntity," + std::to_string(*this->_status->at(0) - 1) + "," + std::to_string(*this->_status->at(1)) + "," + std::to_string(*this->_status->at(2)) + ",";
 				std::vector<std::string> command;
 				size_t pos = 0;
 				while ((pos = commandString.find(",")) != std::string::npos)
@@ -49,7 +49,7 @@ std::vector<std::string> PlayerBrain::think()
 			//S Pressed
 			if (event.key.code == 115)
 			{
-				commandString = "moveEntity," + std::to_string(*this->_status->at(0)) + "," + std::to_string(*this->_status->at(1) + 1) + ",";
+				commandString = "moveEntity," + std::to_string(*this->_status->at(0)) + "," + std::to_string(*this->_status->at(1) + 1) + "," + std::to_string(*this->_status->at(2)) + ",";
 				std::vector<std::string> command;
 				size_t pos = 0;
 				while ((pos = commandString.find(",")) != std::string::npos)
@@ -62,7 +62,7 @@ std::vector<std::string> PlayerBrain::think()
 			//D Pressed
 			if (event.key.code == 100)
 			{
-				commandString = "moveEntity," + std::to_string(*this->_status->at(0) + 1) + "," + std::to_string(*this->_status->at(1)) + ",";
+				commandString = "moveEntity," + std::to_string(*this->_status->at(0) + 1) + "," + std::to_string(*this->_status->at(1)) + "," + std::to_string(*this->_status->at(2)) + ",";
 				std::vector<std::string> command;
 				size_t pos = 0;
 				while ((pos = commandString.find(",")) != std::string::npos)

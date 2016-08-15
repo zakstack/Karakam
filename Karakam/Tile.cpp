@@ -27,7 +27,7 @@ std::vector<std::string> Tile::receiveCommand(std::vector<std::string> command)
 			//Check that there is a proper coordinate provided
 			if (command.size() == 3)
 			{
-				returnVector.push_back(moveEntity(std::stoi(command.at(1)), std::stoi(command.at(2))));
+				returnVector.push_back(moveEntity(std::stoi(command.at(1)), std::stoi(command.at(2)), std::stoi(command.at(3))));
 			}
 			else
 			{

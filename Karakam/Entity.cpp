@@ -52,7 +52,7 @@ std::vector<std::string> Entity::receiveCommand(std::vector<std::string> command
 			//Check that there is a proper coordinate provided
 			if (command.size() == 3)
 			{
-				returnVector.push_back(moveEntity(std::stoi(command.at(1)), std::stoi(command.at(2))));
+				returnVector.push_back(moveEntity(std::stoi(command.at(1)), std::stoi(command.at(2)), std::stoi(command.at(3))));
 			}
 			else
 			{
@@ -133,44 +133,26 @@ std::pair<int, int> Entity::getLocation()
 	return _location;
 }
 
-std::string Entity::moveEntity(int xPos, int yPos)
+std::string Entity::moveEntity(int xPos, int yPos, int zPos)
 {
 	//IDEA: Can turn this in to a check against the other entity if they can be moved (may want to change this later)
 	_yFacing = (_location.second - yPos);
 	_xFacing = (_location.first - xPos);
-	if (xPos >= 0 && yPos >= 0 && _gameMap[xPos][yPos][_zPosition] == nullptr)
+	if (xPos >= 0 && yPos >= 0 && _gameMap[xPos][yPos][zPos] == nullptr)
 	{
-		std::vector<std::string> command;
-		command.push_back("getPassability");
-		bool passable;
-		std::string response = _gameMap[xPos][yPos][0]->receiveCommand(command).at(0);
-		if (response != "FAIL" && std::stoi(response) == 0)
-		{
-			passable = true;
-		}
-		else
-		{
-			passable = false;
-		}
-		if (passable == true)
-		{
-			//Set the actors facing direction
-			_yFacing = (_location.second - yPos);
-			_xFacing = (_location.first - xPos);
-			//Move the Actor on the map
-			_gameMap[xPos][yPos][_zPosition] = _gameMap[getLocation().first][getLocation().second][_zPosition];
-			_gameMap[getLocation().first][getLocation().second][_zPosition] = nullptr;
-			//Set the actors position in its head
-			_location.first = xPos;
-			_location.second = yPos;
-			//Return it was a success
-			std::cout << std::to_string(getLocation().first) + " " + std::to_string(getLocation().second) + "\n";
-			return "SUCCESS,";
-		}
-		else
-		{
-			return "FAIL,";
-		}
+		//Set the actors facing direction
+		_yFacing = (_location.second - yPos);
+		_xFacing = (_location.first - xPos);
+		//Move the Actor on the map
+		_gameMap[xPos][yPos][zPos] = _gameMap[getLocation().first][getLocation().second][_zPosition];
+		_gameMap[getLocation().first][getLocation().second][_zPosition] = nullptr;
+		//Set the actors position in its head
+		_location.first = xPos;
+		_location.second = yPos;
+		_zPosition = zPos;
+		//Return it was a success
+		std::cout << std::to_string(getLocation().first) + " " + std::to_string(getLocation().second) + "\n";
+		return "SUCCESS,";
 	}
 	else
 	{

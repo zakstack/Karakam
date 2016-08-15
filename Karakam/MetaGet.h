@@ -20,6 +20,8 @@ public:
 
 	//Getters
 	std::vector<std::vector<std::string>> getArray(std::string fileLocation);
+
+	std::vector<std::vector<int>> getIntArray(std::string fileLocation);
 };
 
 #endif

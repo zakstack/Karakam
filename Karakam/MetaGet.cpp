@@ -41,3 +41,36 @@ std::vector<std::vector<std::string>> MetaGet::getArray(std::string fileLocation
 	}
 	return _storageArray;
 }
+
+std::vector<std::vector<int>> MetaGet::getIntArray(std::string fileLocation)
+{
+	std::vector<std::vector<int>> storageArray;
+	std::string line;
+	std::vector<int> divLine;
+	std::ifstream file(fileLocation);
+	if (file.is_open())
+	{
+		while (getline(file, line))
+		{
+			//Check if it is a skip line
+			if (line.substr(0, 1) != "@")
+			{
+				//Build the divLine
+				size_t pos = 0;
+				while ((pos = line.find(",")) != std::string::npos)
+				{
+					divLine.push_back(std::stoi(line.substr(0, pos)));
+					line.erase(0, pos + 1);
+				}
+				storageArray.push_back(divLine);
+				divLine.clear();
+			}
+		}
+	}
+	else
+	{
+		//FILE COULD NOT BE READ
+		std::cout << "File at :" + fileLocation + " could not be read";
+	}
+	return storageArray;
+}
