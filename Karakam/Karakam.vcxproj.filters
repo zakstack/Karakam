@@ -73,6 +73,9 @@
     <Filter Include="Header Files\Graphics\Data Structure">
       <UniqueIdentifier>{4b21c4db-cc7d-4c54-9dcd-60761cf7bb39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Entities\Items">
+      <UniqueIdentifier>{f701f299-12c6-426e-b92f-870222cfbc19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brain.cpp">
@@ -114,6 +117,9 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Header Files\Entities\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VegitableBrain.h">
@@ -151,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

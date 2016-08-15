@@ -14,12 +14,9 @@ private:
 
 protected:
 	Entity**** _gameMap;
-	virtual std::string moveEntity(int xPos, int yPos, int zPos);
+	
+	//Used only for polling for window events
 	sf::RenderWindow* _renderWindow;
-	int _entityTypeID;
-	int _entityID;
-	int _xFacing;
-	int _yFacing;
 	
 	//Entity Type ID's are as follows
 	/*
@@ -28,36 +25,38 @@ protected:
 		2 : Actor
 		3 : SFX Layer -> Not Yet implemented
 	*/
-
-	//Receivable Commands
-	int getXFacing();
-	int getYFacing();
-
 public:
+	//Constructors and Destructor
 	Entity(Entity**** gameMap, sf::RenderWindow* targetWindow,int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int zPosition);
 	Entity();
 	~Entity();
 
+	//Openly Accessable Values
 	int _exists;
+	std::pair<int, int> _location;
+	int _zPosition;
+	int _xFacing;
+	int _yFacing;
+	int _entityTypeID;
+	int _entityID;
 
 	//The Command System : Receiving Commands
 	virtual std::vector<std::string> receiveCommand(std::vector<std::string> command);
 
-	//Utilities
-	std::vector<std::string> stringToVector(std::string targetString, std::string token);
-	int getExists();
-	//Receivable Command
+	//Receivable Commands
+	int getXFacing();
+	int getYFacing();
+	virtual std::string moveEntity(int xPos, int yPos, int zPos);
 	std::pair<int, int> getLocation();
 	int getEntityID();
 	int getEntityTypeID();
 
-	//TESTING
-	void visualTest();
-	std::string _TESTLIBRARYLOC = "Textures/Test/Load.txt";
-	TextureLibrary _testLibrary;
-	sf::Sprite _entityGraphic;
-	std::pair<int, int> _location;
-	int _zPosition;
+	//Utilities
+	std::vector<std::string> stringToVector(std::string targetString, std::string token);
+	int getExists();
+
+	//Decided that all things have inventories for eas of implementation. May move this but it does allow for Tiles and items to have items too which could be useful
+	std::vector<Entity*> _inventory;
 
 };
 #endif

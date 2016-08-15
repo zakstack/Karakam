@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include "VeroniMapGen.h"
 #include "TextureLibrary.h"
+#include "Item.h"
 
 class Map
 {
@@ -27,6 +28,7 @@ protected:
 	//Libraries for all of the standard Entity Types
 	std::unordered_map<int,Actor_Ent*> _actorLibrary;
 	std::unordered_map<int,Tile*> _tileLibrary;
+	std::unordered_map<int, Item*> _itemLibrary;
 
 	Entity**** _gameMap;
 public:

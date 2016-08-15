@@ -10,8 +10,10 @@ class Actor_Ent :
 	public Entity
 {
 private:
+	int _health = 10;
 	Brain* _brain;
 	std::vector<int*> _status;
+
 public:
 	Actor_Ent(Entity**** gameMap, sf::RenderWindow* renderWindow, int entityID, int xFacing, int yFacing, int xPosition, int yPosition, int zPosition, int brainID);
 	~Actor_Ent();
@@ -24,7 +26,7 @@ public:
 
 	virtual void die();
 	virtual void kill(int xMod, int yMod);
-	void loadBrain();
+	void heal(int healAmount);
 };
 
 #endif 

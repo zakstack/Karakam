@@ -76,7 +76,7 @@ std::vector<std::string> PlayerBrain::think()
 			if (event.key.code == 4)
 			{
 				std::vector<std::string> command;
-				command.push_back("getEntityTypeID_f");
+				command.push_back("usePotion");
 				return command;
 			}
 			//R Pressed

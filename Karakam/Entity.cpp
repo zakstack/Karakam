@@ -210,33 +210,3 @@ std::string Entity::moveEntity(int xPos, int yPos, int zPos)
 		}
 	}
 }
-
-//TESTING
-void Entity::visualTest()
-{
-	//TESTING CODE GOES HERE
-	_testLibrary.LoadLibrary("Textures/Test/Load.txt");
-	_entityGraphic.setTexture(_testLibrary.getTexture(0));
-	_entityGraphic.setPosition(sf::Vector2f(_location.first, _location.second));
-
-	sf::RenderWindow* _renderWindow;
-	_renderWindow = new sf::RenderWindow();
-	_renderWindow->create(sf::VideoMode(800, 800), "Karakam");
-	while (_renderWindow->isOpen())
-	{
-		sf::Event event;
-		while (_renderWindow->pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
-				_renderWindow->close();
-			}
-			std::string command;
-			std::cin >> command;
-			receiveCommand(stringToVector(command, ","));
-		}
-		_renderWindow->clear();
-		//_renderWindow->draw(this->_entityGraphic);
-		_renderWindow->display();
-	}
-}

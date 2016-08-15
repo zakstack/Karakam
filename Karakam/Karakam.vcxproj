@@ -122,6 +122,7 @@
     <ClCompile Include="Brain.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapSplitter.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Brain.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="MapSplitter.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MetaGet.h" />

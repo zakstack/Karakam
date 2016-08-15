@@ -71,12 +71,7 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 	std::vector<std::string> returnVector;
 	if (command.size() != 0 && command.at(0) != "FAIL")
 	{
-		if (command.at(0) == "getFacing")
-		{
-			returnVector.push_back(std::to_string(getXFacing()));
-			returnVector.push_back(std::to_string(getYFacing()));
-		}
-		else if (command.at(0) == "tick")
+		if (command.at(0) == "tick")
 		{
 			receiveCommand(getCommand());
 		}
@@ -94,26 +89,12 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 				returnVector.push_back("FAIL: Too Few Arguments Given\n");
 			}
 		}
-		else if (command.at(0) == "getEntityID")
-		{
-			returnVector.push_back(std::to_string(getEntityID()));
-		}
-		else if (command.at(0) == "getEntityTypeID")
-		{
-			returnVector.push_back(std::to_string(getEntityTypeID()));
-		}
 		else if (command.at(0) == "getEntityTypeID_f")
 		{
 			if (_location.first - _xFacing >= 0 && _location.second - _yFacing >0 && _gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition] != nullptr)
 			{
 				std::cout << std::to_string(_gameMap[_location.first - _xFacing][_location.second - _yFacing][_zPosition]->getEntityID());
 			}
-		}
-		else if (command.at(0) == "getLocation")
-		{
-			returnVector.push_back(std::to_string(getLocation().first));
-			returnVector.push_back(std::to_string(getLocation().second));
-			std::cout << "Current Location:\n";
 		}
 		else if (command.at(0) == "die")
 		{
@@ -148,20 +129,29 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 		{
 			returnVector.push_back("Waited!");
 		}
-		else if (command.at(0) == "setBrain")
+		else if (command.at(0) == "heal")
 		{
-
+			if (command.size() == 2)
+			{
+				heal(10);
+			}
+		}
+		//Temporary command for item testing
+		else if (command.at(0) == "usePotion" && _inventory.size() > 0)
+		{
+			std::vector<std::string> newCommand;
+			newCommand.push_back("use");
+			newCommand.push_back(std::to_string(_location.first));
+			newCommand.push_back(std::to_string(_location.second));
+			newCommand.push_back(std::to_string(_zPosition));
+			_inventory.at(0)->receiveCommand(newCommand);
+			_inventory.clear();
 		}
 		else
 		{
-			returnVector.push_back("FAIL");
-			returnVector.push_back(": Unable to determine command type\n");
+			//Call the Entity Constructors Version
+			returnVector = Entity::receiveCommand(command);
 		}
-		for (int i = 0; i < returnVector.size(); i++)
-		{
-			std::cout << "Value " + std::to_string(i) + " : " + returnVector.at(i) + "\n";
-		}
-		std::cout << "\n";
 	}
 	else
 	{
@@ -187,4 +177,10 @@ void Actor_Ent::kill(int xMod, int yMod)
 		command.push_back("die");
 		_gameMap[_location.first - xMod][_location.second - yMod][_entityTypeID]->receiveCommand(command);
 	}
+}
+
+void Actor_Ent::heal(int healAmount)
+{
+	_health = _health + healAmount;
+	std::cout << "Healed the Player : " + std::to_string(healAmount) + "hp\n";
 }

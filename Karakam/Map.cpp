@@ -49,6 +49,25 @@ Map::Map(std::string masterLoc,sf::RenderWindow* renderWindow)
 		_actorLibrary.insert(newHash);
 	}
 
+	//Load in the Item Library
+	std::vector<std::vector<std::string>> itemHashList;
+	itemHashList = getter.getArray(_directorList.at(2).at(0));
+	for (int i = 0; i < itemHashList.size(); i++)
+	{
+		std::pair<int, Item*> newHash;
+		newHash.first = std::stoi(actorHashList.at(i).at(0));
+		std::vector<std::vector<std::string>> actorStats;
+		actorStats = getter.getArray(itemHashList.at(i).at(1));
+		//Pull out all of the commands from the remaining lines
+		std::vector<std::vector<std::string>> useArray;
+		for (int i = 1; i < actorStats.size(); i++)
+		{
+			useArray.push_back(actorStats.at(i));
+		}
+		newHash.second = new Item(_gameMap, _renderWindow, std::stoi(actorStats.at(0).at(0)), std::stoi(actorStats.at(0).at(1)), std::stoi(actorStats.at(0).at(2)), std::stoi(actorStats.at(0).at(3)), std::stoi(actorStats.at(0).at(4)), std::stoi(actorStats.at(0).at(5)),useArray);
+		_itemLibrary.insert(newHash);
+	}
+
 	//Make a clean cube
 	for (int z = 0; z < 2; z++)
 	{
@@ -97,6 +116,7 @@ Map::Map(std::string masterLoc,sf::RenderWindow* renderWindow)
 	_gameMap[1][1][1] = _actorLibrary.at(std::stoi(actorLayout.at(1).at(1)));
 	_activeActors.push_back(_gameMap[1][1][1]);
 	_activeActors.back()->_zPosition = 1;
+	_activeActors.back()->_inventory.push_back(_itemLibrary.at(0));
 
 	test();
 }
