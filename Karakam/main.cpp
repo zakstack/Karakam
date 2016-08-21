@@ -4,12 +4,12 @@
 
 int main()
 {
-	//VeroniMapGen newGen(100, 100, 5, 1, 2);
+	//VeroniMapGen newGen(100, 100, 10, 100, 5);
 	//newGen.genMap();
-	//newGen.generateMultiPassMap(10);
+	//newGen.generateCubeMap(3);
+	//newGen.generatePerfectMap();
 	//newGen.writeToFile("Bin/Maps/SaveSlot1/Maps/Test0.txt");
-	//newGen.generateWorkingMap(5, 5);
-	//newGen.writeCubeToFile("Bin/Maps/SaveSlot1/Maps/Test",5);
+	//newGen.writeCubeToFile("Bin/Maps/Test",10);
 	////Testing out the new Map System
 	Game newGame;
 	//newGame.~Game();

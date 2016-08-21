@@ -5,6 +5,7 @@
 #include "Brain.h"
 #include "VegitableBrain.h"
 #include "PlayerBrain.h"
+#include "Inventory.h"
 
 class Actor_Ent :
 	public Entity
@@ -27,6 +28,9 @@ public:
 	virtual void die();
 	virtual void kill(int xMod, int yMod);
 	void heal(int healAmount);
+
+	//PUBLIC ONLY FOR TESTING
+	Inventory* _inventory;
 };
 
 #endif 

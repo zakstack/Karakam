@@ -2,6 +2,7 @@
 #define __ITEM_H__
 
 #include "Entity.h"
+
 class Item :
 	public Entity
 {
@@ -17,7 +18,7 @@ public:
 	virtual std::vector<std::string> receiveCommand(std::vector<std::string> command);
 
 	//Receivable Commands
-	virtual void use(int x, int y, int z);
+	virtual void use(Entity* targetEntity);
 
 };
 

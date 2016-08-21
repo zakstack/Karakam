@@ -57,6 +57,32 @@ void VeroniMapGen::clearCube(std::vector<std::vector<std::vector<int>>>* targetM
 	}
 }
 
+std::vector<std::vector<int>> VeroniMapGen::getTops(std::vector<std::vector<std::vector<int>>>* targetCube)
+{
+	//Clear out the matrix before use to set the default top to 0
+	clearMatrix(&_matrix);
+
+	//Get each row of Entities in the grid
+	for (int y = 0; y < _ySize; y++)
+	{
+		for (int x = 0; x < _xSize; x++)
+		{
+			for (int z = 0; z < _zSize; z++)
+			{
+				//Find which tile is on top
+				if (targetCube->at(z).at(x).at(y) == 0)
+				{
+					//This is the top point
+					_matrix.at(x).at(y) = z;
+					z = _zSize;
+				}
+			}
+
+		}
+	}
+	return _matrix;
+}
+
 
 //Seed Controls
 std::vector<std::pair<int,int>> VeroniMapGen::generateSeeds(int xMin, int xMax, int yMin, int yMax, int density)
@@ -207,6 +233,39 @@ std::vector<std::vector<std::vector<int>>> VeroniMapGen::generateWorkingMap(int 
 	return _cube;
 }
 
+std::vector<std::vector<std::vector<int>>> VeroniMapGen::generatePerfectMap()
+{
+	//Generate a Working Map
+	_cube = generateCubeMap(2);
+
+	std::vector<std::vector<int>> tops = getTops(&_cube);
+	//Add 3 Dirt to the top of each top tile
+	for (int y = 0; y < _ySize; y++)
+	{
+		for (int x = 0; x < _xSize; x++)
+		{
+			//Pile up to 3 dirt on top of every stone Tile
+			for (int z = tops.at(x).at(y); z < _zSize && z < tops.at(x).at(y) + 3; z++)
+			{
+				_cube.at(z).at(x).at(y) = 2;
+			}
+		}
+	}
+	tops = getTops(&_cube);
+
+	//Turn each of the top tiles in to grass
+	for (int y = 0; y < _ySize; y++)
+	{
+		for (int x = 0; x < _xSize; x++)
+		{
+			_cube.at(tops.at(x).at(y)).at(x).at(y) = 3;
+		}
+	}
+	tops = getTops(&_cube);
+
+	return _cube;
+}
+
 
 //File IO
 void VeroniMapGen::writeToFile(std::string writeLoc)
@@ -265,7 +324,3 @@ std::vector<std::vector<std::vector<int>>> VeroniMapGen::loadCubeFromFile(std::s
 	}
 	return newCube;
 }
-
-//Entity**** VeroniMapGen::generateEntityMap()
-//{
-//}

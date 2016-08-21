@@ -33,6 +33,7 @@ public:
 	//Matrix Controls
 	void clearMatrix(std::vector<std::vector<int>>* targetMatrix);
 	void clearCube(std::vector<std::vector<std::vector<int>>>* targetMatrix);
+	std::vector<std::vector<int>> getTops(std::vector<std::vector<std::vector<int>>>* targetCube);
 
 	//Seed Controls
 	std::vector<std::pair<int,int>> generateSeeds(int xMin, int xMax, int yMin, int yMax, int density);
@@ -44,6 +45,7 @@ public:
 	std::vector<std::vector<int>> genMap();
 	std::vector<std::vector<std::vector<int>>> generateCubeMap(int numPasses);
 	std::vector<std::vector<std::vector<int>>> generateWorkingMap(int numPasses);
+	std::vector<std::vector<std::vector<int>>> generatePerfectMap();
 
 	//File IO
 	void writeToFile(std::string writeLoc);

@@ -15,9 +15,6 @@ private:
 protected:
 	Entity**** _gameMap;
 	
-	//Used only for polling for window events
-	sf::RenderWindow* _renderWindow;
-	
 	//Entity Type ID's are as follows
 	/*
 		0 : Tile
@@ -56,7 +53,8 @@ public:
 	int getExists();
 
 	//Decided that all things have inventories for eas of implementation. May move this but it does allow for Tiles and items to have items too which could be useful
-	std::vector<Entity*> _inventory;
+	//Inventory* _inventory;
 
+	sf::RenderWindow* _renderWindow;
 };
 #endif

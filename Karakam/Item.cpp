@@ -35,7 +35,7 @@ std::vector<std::string> Item::receiveCommand(std::vector<std::string> command)
 			//Check that the cororidnates for the user are provided
 			if (command.size() == 4)
 			{
-				use(std::stoi(command.at(1)), std::stoi(command.at(2)), std::stoi(command.at(3)));
+				use(_gameMap[std::stoi(command.at(1))][std::stoi(command.at(2))][std::stoi(command.at(3))]);
 				returnVector.push_back("Used");
 			}
 		}
@@ -51,9 +51,8 @@ std::vector<std::string> Item::receiveCommand(std::vector<std::string> command)
 	return returnVector;
 }
 
-void Item::use(int x, int y, int z)
+void Item::use(Entity* targetEntity)
 {
-	Entity* targetEntity = _gameMap[x][y][z];
 	//Cycle Through all of the commands listed in the array and send them to the user
 	for (int i = 0; i < _useArray.size(); i++)
 	{

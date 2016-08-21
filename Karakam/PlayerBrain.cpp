@@ -18,9 +18,9 @@ std::vector<std::string> PlayerBrain::think()
 	//Check for action until the player makes an action
 	while (_renderWindow->pollEvent(event) || 1 == 1)
 	{
-		if (sf::Event::KeyReleased)
+		if (sf::Event::KeyPressed)
 		{
-			//W Pressed
+			//W Pressed : Move Up
 			if (event.key.code == 119)
 			{
 				commandString = "moveEntity," + std::to_string(*this->_status->at(0)) + "," + std::to_string(*this->_status->at(1) - 1) + "," + std::to_string(*this->_status->at(2)) + ",";
@@ -33,7 +33,7 @@ std::vector<std::string> PlayerBrain::think()
 				}
 				return command;
 			}
-			//A Pressed
+			//A Pressed: Move Left
 			if (event.key.code == 97)
 			{
 				commandString = "moveEntity," + std::to_string(*this->_status->at(0) - 1) + "," + std::to_string(*this->_status->at(1)) + "," + std::to_string(*this->_status->at(2)) + ",";
@@ -46,7 +46,7 @@ std::vector<std::string> PlayerBrain::think()
 				}
 				return command;
 			}
-			//S Pressed
+			//S Pressed: Move Down
 			if (event.key.code == 115)
 			{
 				commandString = "moveEntity," + std::to_string(*this->_status->at(0)) + "," + std::to_string(*this->_status->at(1) + 1) + "," + std::to_string(*this->_status->at(2)) + ",";
@@ -59,7 +59,7 @@ std::vector<std::string> PlayerBrain::think()
 				}
 				return command;
 			}
-			//D Pressed
+			//D Pressed: Move Right
 			if (event.key.code == 100)
 			{
 				commandString = "moveEntity," + std::to_string(*this->_status->at(0) + 1) + "," + std::to_string(*this->_status->at(1)) + "," + std::to_string(*this->_status->at(2)) + ",";
@@ -72,14 +72,14 @@ std::vector<std::string> PlayerBrain::think()
 				}
 				return command;
 			}
-			//E Pressed
+			//E Pressed **TESTING COMMAND** : Open Inventory
 			if (event.key.code == 4)
 			{
 				std::vector<std::string> command;
-				command.push_back("usePotion");
+				command.push_back("openInventory");
 				return command;
 			}
-			//R Pressed
+			//R Pressed : Dig
 			if (event.key.code == 17)
 			{
 				std::vector<std::string> command;

@@ -41,6 +41,7 @@ Actor_Ent::Actor_Ent(Entity**** gameMap, sf::RenderWindow* renderWindow, int ent
 	{
 		_brain->setStatus(&_status);
 	}
+	_inventory = new Inventory(this, 10);
 }
 
 Actor_Ent::~Actor_Ent()
@@ -136,16 +137,36 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 				heal(10);
 			}
 		}
-		//Temporary command for item testing
-		else if (command.at(0) == "usePotion" && _inventory.size() > 0)
+		else if (command.at(0) == "use" && command.size() == 2)
+		{
+			_inventory->useOnEntity(std::stoi(command.at(1)),this);
+		}
+		else if (command.at(0) == "openInventory")
+		{
+			if (_inventory->getOpen() == true)
+			{
+				_inventory->setOpen(false);
+			}
+			else
+			{
+				_inventory->setOpen(true);
+			}
+		}
+		else if (command.at(0) == "throw" && command.size() == 4)
 		{
 			std::vector<std::string> newCommand;
 			newCommand.push_back("use");
 			newCommand.push_back(std::to_string(_location.first));
 			newCommand.push_back(std::to_string(_location.second));
 			newCommand.push_back(std::to_string(_zPosition));
-			_inventory.at(0)->receiveCommand(newCommand);
-			_inventory.clear();
+		}
+		else if (command.at(0) == "drop" && command.size() == 4)
+		{
+			std::vector<std::string> newCommand;
+			newCommand.push_back("use");
+			newCommand.push_back(std::to_string(_location.first));
+			newCommand.push_back(std::to_string(_location.second));
+			newCommand.push_back(std::to_string(_zPosition));
 		}
 		else
 		{

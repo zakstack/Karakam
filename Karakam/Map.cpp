@@ -1,15 +1,12 @@
 #include "Map.h"
 
-Map::Map(std::string masterLoc,sf::RenderWindow* renderWindow)
+Map::Map(std::string masterLoc, sf::RenderWindow* renderWindow)
 {
+	//Load in the render window
 	_renderWindow = renderWindow;
-
 	//Load the Master Location File in to the DirectoryList
 	MetaGet getter;
 	_directorList = getter.getArray(masterLoc);
-
-	_tileGraphicLibrary.LoadLibrary(_directorList.at(3).at(0));
-	_actorGraphicLibrary.LoadLibrary(_directorList.at(4).at(0));
 
 	//Create the default map
 	_gameMap = new Entity***[_X_SIZE];
@@ -79,14 +76,13 @@ Map::Map(std::string masterLoc,sf::RenderWindow* renderWindow)
 			}
 		}
 	}
-
 	
 	VeroniMapGen newGen(_X_SIZE, _Y_SIZE, _Z_SIZE, 200, 5);
 	//Generate the maps Veroni Cube
 	//std::vector<std::vector<std::vector<int>>> targetMap = newGen.generateWorkingMap(1);
 	//newGen.writeCubeToFile("Bin/Maps/SaveSlot1/Maps/Test", 5);
 	//Load the maps Veroni Cube
-	std::vector<std::vector<std::vector<int>>> targetMap = newGen.loadCubeFromFile("Bin/Maps/SaveSlot1/Maps/Test",5);
+	std::vector<std::vector<std::vector<int>>> targetMap = newGen.loadCubeFromFile("Bin/Maps/SaveSlot1/Maps/Test",_Z_SIZE);
 
 	//Load the Tile Map
 	for (int z = 0; z < _Z_SIZE; z++)
@@ -113,12 +109,15 @@ Map::Map(std::string masterLoc,sf::RenderWindow* renderWindow)
 
 	//Load the Player Actor
 	std::vector<std::vector<std::string>> actorLayout = getter.getArray("Bin/Maps/SaveSlot1/Maps/ActorMap.txt");
-	_gameMap[1][1][1] = _actorLibrary.at(std::stoi(actorLayout.at(1).at(1)));
-	_activeActors.push_back(_gameMap[1][1][1]);
-	_activeActors.back()->_zPosition = 1;
-	_activeActors.back()->_inventory.push_back(_itemLibrary.at(0));
+	_gameMap[1][1][5] = _actorLibrary.at(std::stoi(actorLayout.at(1).at(1)));
+	_activeActors.push_back(_gameMap[1][1][5]);
+	_activeActors.back()->_zPosition = 5;
 
-	test();
+	//Load a 4 test items in to the players inventory
+	((Actor_Ent *)_activeActors.back())->_inventory->addItem(*_itemLibrary.at(0));
+	((Actor_Ent *)_activeActors.back())->_inventory->addItem(*_itemLibrary.at(0));
+	((Actor_Ent *)_activeActors.back())->_inventory->addItem(*_itemLibrary.at(0));
+	((Actor_Ent *)_activeActors.back())->_inventory->addItem(*_itemLibrary.at(0));
 }
 
 Map::~Map()
@@ -136,104 +135,19 @@ void Map::tick()
 	}
 }
 
-void Map::test()
+sf::Vector3i Map::getMapSizeVector()
 {
-	//Begin the game loop
-	// run the program as long as the window is open
-	while (_renderWindow->isOpen())
-	{
-		// check all the window's events that were triggered since the last iteration of the loop
-		sf::Event event;
-		while (_renderWindow->pollEvent(event))
-		{
-			// "close requested" event: we close the window
-			if (event.type == sf::Event::Closed)
-				_renderWindow->close();
-			tick();
-		}
-		
-		
-		_renderWindow->clear(sf::Color::Black);
-		//Center the mainView on the Player
-		sf::View mainView(sf::FloatRect(_activeActors.at(0)->getLocation().first * 50 - 400, _activeActors.at(0)->getLocation().second * 50 - 350, 800, 800));
-		_renderWindow->setView(mainView);
-	
-		int yMin;
-		if (_activeActors.at(0)->getLocation().second - 5 >= 0)
-		{
-			yMin = _activeActors.at(0)->getLocation().second - 5;
-		}
-		else
-		{
-			yMin = 0;
-		}
-		int xMin;
-		if (_activeActors.at(0)->getLocation().first - 5 >= 0)
-		{
-			xMin = _activeActors.at(0)->getLocation().first - 5;
-		}
-		else
-		{
-			xMin = 0;
-		}
-	
+	return sf::Vector3i(_X_SIZE,_Y_SIZE,_Z_SIZE);
+}
 
-		sf::Sprite drawSprite;
-		for (int y = yMin; y < _activeActors.at(0)->getLocation().second + 6; y++)
-		{
-			for (int x = xMin; x < _activeActors.at(0)->getLocation().first + 6; x++)
-			{
-				for (int z = 0; z < _Z_SIZE; z++)
-				{
-					if (x >= 0 && x < _X_SIZE && y >= 0 & y < _Y_SIZE && z >= 0 && z < _Z_SIZE && _gameMap[x][y][z] != nullptr)
-					{
-						switch (_gameMap[x][y][z]->getEntityTypeID())
-						{
-							//Tiles
-							case 0:
-								drawSprite.setTexture(_tileGraphicLibrary.getTexture(_gameMap[x][y][z]->getEntityID()));
-								break;
-							//Actor
-							case 1:
-								drawSprite.setTexture(_actorGraphicLibrary.getTexture(_gameMap[x][y][z]->getEntityID()));
-								break;
-							//Other
-							case 2:
-								break;
-							default:
-								break;
-						}
+std::vector<Entity*>* Map::getActiveActors()
+{
+	return &_activeActors;
+}
 
-						drawSprite.setPosition(x * 50, y * 50);
-						//Determine where the sprite is in accordance to where the player is and draw accordingly
-						if (z > _activeActors.at(0)->_zPosition)
-						{
-							//Draw a black square
-							//drawSprite.setColor(sf::Color(1, 1, 1, 255));
-							//_renderWindow->draw(drawSprite);
-						}
-						else if (z < _activeActors.at(0)->_zPosition - 1)
-						{
-							drawSprite.setColor(sf::Color(122/(_activeActors.at(0)->_zPosition - z), 122/(_activeActors.at(0)->_zPosition - z), 122/(_activeActors.at(0)->_zPosition - z), 255));
-							_renderWindow->draw(drawSprite);
-						}
-						else if (z == _activeActors.at(0)->_zPosition - 1)
-						{
-							drawSprite.setColor(sf::Color(255, 255, 255, 255));
-							_renderWindow->draw(drawSprite);
-						}
-						else
-						{
-							drawSprite.setColor(sf::Color(255, 1, 1, 255));
-							//Draw what the sprite looks like
-							_renderWindow->draw(drawSprite);
-						}
-					}
-				}
-			}
-		}
-		_renderWindow->display();
-	}
+Entity**** Map::getGameMap()
+{
+	return _gameMap;
 }
 
 void Map::dumpToFile(std::string fileLoc, int zLevel)

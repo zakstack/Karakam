@@ -76,6 +76,9 @@
     <Filter Include="Header Files\Entities\Items">
       <UniqueIdentifier>{f701f299-12c6-426e-b92f-870222cfbc19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities\Items">
+      <UniqueIdentifier>{34fb7a16-6796-499d-aa61-a6416c3df1f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brain.cpp">
@@ -118,7 +121,13 @@
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
-      <Filter>Header Files\Entities\Items</Filter>
+      <Filter>Source Files\Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsEngine.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +168,12 @@
       <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
+      <Filter>Header Files\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsEngine.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

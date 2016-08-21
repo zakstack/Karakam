@@ -8,21 +8,20 @@
 #include "MetaGet.h"
 #include <unordered_map>
 #include "VeroniMapGen.h"
-#include "TextureLibrary.h"
 #include "Item.h"
+#include "SFML\Graphics.hpp"
 
 class Map
 {
 private:
-	const int _Z_SIZE = 5;
+	const int _Z_SIZE = 10;
 	const int _X_SIZE = 100;
 	const int _Y_SIZE = 100;
+
 	std::vector<std::vector<std::string>> _directorList;
 	std::vector<Entity*> _activeActors;
-	sf::RenderWindow* _renderWindow;
 
-	TextureLibrary _tileGraphicLibrary;
-	TextureLibrary _actorGraphicLibrary;
+	sf::RenderWindow* _renderWindow;
 
 protected:
 	//Libraries for all of the standard Entity Types
@@ -32,13 +31,19 @@ protected:
 
 	Entity**** _gameMap;
 public:
-	Map(std::string masterLoc,sf::RenderWindow* renderWindow);
+	//Constructor & Destructor
+	Map(std::string masterLoc, sf::RenderWindow* renderWindow);
 	~Map();
 
+	//Tick Tock Tick Tock
 	void tick();
 
-	void test();
+	//Getters
+	sf::Vector3i getMapSizeVector();
+	std::vector<Entity*>* getActiveActors();
+	Entity**** getGameMap();
 
+	//Utility
 	void dumpToFile(std::string fileLoc, int zLevel);
 };
 
