@@ -130,7 +130,7 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 		{
 			if (_zPosition - 1 >= 0 && _gameMap[_location.first][_location.second][_zPosition - 1] != nullptr)
 			{
-				_gameMap[_location.first][_location.second][_zPosition - 1] = nullptr;
+				_gameMap[_location.first][_location.second][_zPosition - 1]->receiveCommand(command);
 			}
 		}
 		else if (command.at(0) == "wait")

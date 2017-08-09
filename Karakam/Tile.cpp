@@ -63,6 +63,11 @@ std::vector<std::string> Tile::receiveCommand(std::vector<std::string> command)
 			_gameMap[_location.first][_location.second][_zPosition]->_exists = false;
 			_gameMap[_location.first][_location.second][_zPosition] = nullptr;
 		}
+		else if (command.at(0) == "digDown")
+		{
+			_gameMap[_location.first][_location.second][_zPosition]->_exists = false;
+			_gameMap[_location.first][_location.second][_zPosition] = nullptr;
+		}
 		else
 		{
 			returnVector.push_back("FAIL");
