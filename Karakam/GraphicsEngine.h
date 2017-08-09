@@ -13,12 +13,13 @@ private:
 	Map* _targetMap;
 	TextureLibrary _tileGraphicLibrary;
 	TextureLibrary _actorGraphicLibrary;
+	TextureLibrary _itemGraphicLibrary;
 	sf::Font _gameFont;
 	sf::Text _heightText;
 	std::vector<std::vector<int>> _matrix;
 
 public:
-	GraphicsEngine(sf::RenderWindow* renderWindow, Map* targetMap, std::string tglLoc, std::string aglLoc);
+	GraphicsEngine(sf::RenderWindow* renderWindow, Map* targetMap, std::string tglLoc, std::string aglLoc, std::string iglLoc);
 	~GraphicsEngine();
 
 	void drawTile(int x, int y, int z);

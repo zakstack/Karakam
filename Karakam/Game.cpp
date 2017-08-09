@@ -4,13 +4,13 @@ Game::Game()
 {
 	//Create the game window
 	mainWindow = new sf::RenderWindow(sf::VideoMode(800, 800), "Karakram");
-	mainWindow->setKeyRepeatEnabled(false);
+	//mainWindow->setKeyRepeatEnabled(false);
 
 	//Load the Map
 	gameMap = new Map("Bin/Maps/SaveSlot1/Master.txt",mainWindow);
 
 	//Create the Graphic Engine
-	GraphicsEngine graphics(mainWindow,gameMap,"Textures/Maps/TestMap/Load.txt","Textures/Actors/Load.txt");
+	GraphicsEngine graphics(mainWindow,gameMap,"Textures/Maps/TestMap/Load.txt","Textures/Actors/Load.txt", "Textures/Items/Load.txt");
 
 	//Begin the game loop
 	// run the program as long as the window is open

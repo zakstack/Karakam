@@ -79,11 +79,17 @@ std::vector<std::string> PlayerBrain::think()
 				command.push_back("openInventory");
 				return command;
 			}
-			//R Pressed : Dig
+			//R Pressed : Digzz
 			if (event.key.code == 17)
 			{
 				std::vector<std::string> command;
 				command.push_back("dig");
+				return command;
+			}
+			if (event.key.code == 5)
+			{
+				std::vector<std::string> command;
+				command.push_back("digDown");
 				return command;
 			}
 			else

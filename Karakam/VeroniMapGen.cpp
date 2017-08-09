@@ -258,7 +258,15 @@ std::vector<std::vector<std::vector<int>>> VeroniMapGen::generatePerfectMap()
 	{
 		for (int x = 0; x < _xSize; x++)
 		{
-			_cube.at(tops.at(x).at(y)).at(x).at(y) = 3;
+			int roll = std::rand() % 100;
+			if (roll > 15)
+			{
+				_cube.at(tops.at(x).at(y)).at(x).at(y) = 3;
+			}
+			else
+			{
+				_cube.at(tops.at(x).at(y)).at(x).at(y) = 2;
+			}
 		}
 	}
 	tops = getTops(&_cube);

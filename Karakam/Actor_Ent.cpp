@@ -126,6 +126,13 @@ std::vector<std::string> Actor_Ent::receiveCommand(std::vector<std::string> comm
 				}
 			}
 		}
+		else if (command.at(0) == "digDown")
+		{
+			if (_zPosition - 1 >= 0 && _gameMap[_location.first][_location.second][_zPosition - 1] != nullptr)
+			{
+				_gameMap[_location.first][_location.second][_zPosition - 1] = nullptr;
+			}
+		}
 		else if (command.at(0) == "wait")
 		{
 			returnVector.push_back("Waited!");

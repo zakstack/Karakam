@@ -1,12 +1,13 @@
 #include "GraphicsEngine.h"
 
-GraphicsEngine::GraphicsEngine(sf::RenderWindow* renderWindow, Map* targetMap, std::string tglLoc, std::string aglLoc)
+GraphicsEngine::GraphicsEngine(sf::RenderWindow* renderWindow, Map* targetMap, std::string tglLoc, std::string aglLoc, std::string iglLoc)
 {
 	_renderWindow = renderWindow;
 	_targetMap = targetMap;
 	
 	_tileGraphicLibrary.LoadLibrary(tglLoc);
 	_actorGraphicLibrary.LoadLibrary(aglLoc);
+	_itemGraphicLibrary.LoadLibrary(iglLoc);
 	
 	_gameFont.loadFromFile("Bin/Fonts/Body1.otf");
 	
@@ -111,8 +112,8 @@ void GraphicsEngine::drawInventory(Inventory* targetInventory)
 	{
 		sf::RectangleShape background; 
 		background.setFillColor(sf::Color::Red);
-		background.setPosition(sf::Vector2f(targetInventory->_owner->_location.first*50, targetInventory->_owner->_location.second*50));
-		background.setSize(sf::Vector2f(50,50));
+		background.setPosition(sf::Vector2f(targetInventory->_owner->_location.first*50 + 50, targetInventory->_owner->_location.second*50 - 50));
+		background.setSize(sf::Vector2f(150,50));
 		_renderWindow->draw(background);
 	}
 	else
