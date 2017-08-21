@@ -86,6 +86,7 @@ std::vector<std::string> PlayerBrain::think()
 				command.push_back("dig");
 				return command;
 			}
+			//F Pressed : Dig Down
 			if (event.key.code == 5)
 			{
 				std::vector<std::string> command;

@@ -33,4 +33,4 @@ public:
 	Inventory* _inventory;
 };
 
-#endif 
+#endif D

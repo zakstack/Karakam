@@ -75,6 +75,10 @@ std::vector<std::string> Entity::receiveCommand(std::vector<std::string> command
 			returnVector.push_back(std::to_string(getLocation().second));
 			std::cout << "Current Location:\n";
 		}
+		else if (command.at(0) == "getLocation")
+		{
+			returnVector.push_back(std::to_string(getLocation().first));
+		}
 		else
 		{
 			returnVector.push_back("FAIL");
