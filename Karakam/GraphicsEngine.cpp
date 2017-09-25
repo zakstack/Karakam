@@ -110,11 +110,28 @@ void GraphicsEngine::drawInventory(Inventory* targetInventory)
 	//Draw a window extending from the object who's inventory has been opened
 	if (targetInventory->getOpen() == true)
 	{
+		//Pull positional information
+		int colums = (targetInventory->getVector()->size() - (targetInventory->getVector()->size() % 5)) / 5;
+		if (colums == 0) { colums = 1; }
+		int rows = targetInventory->getVector()->size() % 5;
+		int boxSize = 50;
+
+		//Draw the window
 		sf::RectangleShape background; 
-		background.setFillColor(sf::Color::Red);
-		background.setPosition(sf::Vector2f(targetInventory->_owner->_location.first*50 + 50, targetInventory->_owner->_location.second*50 - 50));
-		background.setSize(sf::Vector2f(150,50));
+		background.setFillColor(sf::Color::White);
+		background.setPosition(sf::Vector2f(targetInventory->_owner->_location.first*boxSize + boxSize, targetInventory->_owner->_location.second*boxSize - boxSize));
+		background.setSize(sf::Vector2f(boxSize * rows,boxSize * colums));
 		_renderWindow->draw(background);
+		//Draw the items
+		for(int i = 0; i < targetInventory->getVector()->size(); i++)
+		{
+			//draw each items box determined by the size of the inventory
+			sf::RectangleShape stall;
+			stall.setFillColor(sf::Color::Blue);
+			stall.setPosition(sf::Vector2f((((targetInventory->_owner->_location.first + (i % 5)) * boxSize) + boxSize), (((targetInventory->_owner->_location.second + ((i - (i % 5))/5)) * boxSize) - boxSize)));
+			stall.setSize(sf::Vector2f(boxSize * rows, boxSize * colums));
+			_renderWindow->draw(stall);
+		}
 	}
 	else
 	{

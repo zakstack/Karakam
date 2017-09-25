@@ -142,7 +142,7 @@ std::string Entity::moveEntity(int xPos, int yPos, int zPos)
 	_yFacing = (_location.second - yPos);
 	_xFacing = (_location.first - xPos);
 	//The space in front of the actor is free
-	if (xPos >= 0 && yPos >= 0 && _gameMap[xPos][yPos][zPos] == nullptr)
+	if (xPos >= 0 && yPos >= 0 && zPos >= 0 && _gameMap[xPos][yPos][zPos] == nullptr)
 	{
 		//The space below the desired move location is occupied
 		if (zPos - 1 >= 0 && _gameMap[xPos][yPos][zPos - 1] != nullptr)
@@ -174,7 +174,7 @@ std::string Entity::moveEntity(int xPos, int yPos, int zPos)
 	else
 	{
 		//There actor climbs up a space
-		if (_gameMap[xPos][yPos][zPos + 1] != nullptr && _gameMap[getLocation().first][getLocation().second][zPos + 1] == nullptr)
+		if (xPos >= 0 && yPos >= 0 && zPos >= 0 && _gameMap[xPos][yPos][zPos + 1] != nullptr && _gameMap[getLocation().first][getLocation().second][zPos + 1] == nullptr)
 		{
 			//Move the actor in to the space
 			//Set the actors facing direction
@@ -191,7 +191,7 @@ std::string Entity::moveEntity(int xPos, int yPos, int zPos)
 			std::cout << std::to_string(getLocation().first) + " " + std::to_string(getLocation().second) + "\n";
 			return "CLIMBED UP,";
 		}
-		else if (_gameMap[getLocation().first][getLocation().second][zPos + 1] == nullptr)
+		else if (xPos >= 0 && yPos >= 0 && zPos >= 0 && _gameMap[getLocation().first][getLocation().second][zPos + 1] == nullptr)
 		{
 			//Move the actor in to the space
 			//Set the actors facing direction

@@ -23,6 +23,8 @@ Game::Game()
 			// "close requested" event: we close the window
 			if (event.type == sf::Event::Closed)
 				mainWindow->close();
+			//Wait 1/60th of a second then go
+			sf::Clock clock; // starts the clock
 			gameMap->tick();
 		}
 
@@ -79,6 +81,13 @@ Game::Game()
 		}
 		//=======================================
 		mainWindow->display();
+
+		//This clock determines game speed (f/second where 33 is 1/60 of a second)
+		sf::Clock clock;
+		while (clock.getElapsedTime().asMilliseconds() < 66)
+		{
+			std::cout << "";
+		}
 	}
 }
 
